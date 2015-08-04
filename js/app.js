@@ -1,5 +1,5 @@
 // Start app
-var mainApp = angular.module('MainApp', ['ngRoute'])
+var mainApp = angular.module('MainApp', ['ngRoute', 'ui.bootstrap'])
 
 // Config route provider
 .config(function($routeProvider) {
@@ -12,11 +12,16 @@ var mainApp = angular.module('MainApp', ['ngRoute'])
     templateUrl: 'pages/lectures.html',
     controller: 'LectureController',
   })
+   .when('/final-projects/',{
+    templateUrl:'pages/final-projects.html', 
+    controller:'ProjectController'
+   })
    .when('/', {
     templateUrl: 'pages/landing.html',
     controller: 'LandingController',
   })
 })
+
 
 // Landing page controller
 .controller('LandingController',['$scope', 'LandingData', function($scope, LandingData){
@@ -46,6 +51,14 @@ var mainApp = angular.module('MainApp', ['ngRoute'])
     $scope.items = data;
   });
 }])
+
+// Final project controller
+.controller('ProjectController',['$scope', 'ProjectData', function($scope, ProjectData){
+  ProjectData.then(function(data){
+    $scope.projects = data;
+  });
+}])
+
 
 // Schedule controller 
 .controller('ScheduleController', function($scope, $q, ChallengeData, Items){
@@ -102,4 +115,14 @@ var mainApp = angular.module('MainApp', ['ngRoute'])
      return CSVToArray(response.data);
   });
   return ChallengeRubrics
+}])
+
+// Final project data
+.factory('ProjectData', ['$http', function($http){
+  var Url   = "data/projects.csv";
+  var ProjectData = $http.get(Url).then(function(response){
+     return CSVToArray(response.data);
+  });
+  console.log('project Data ', ProjectData)
+  return ProjectData;
 }]);
