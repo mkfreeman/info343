@@ -22,6 +22,12 @@ var mainApp = angular.module('MainApp', ['ngRoute', 'ui.bootstrap'])
   })
 })
 
+// Main controller
+.controller('MainCtrl', function($scope) {
+  $scope.$on('$includeContentLoaded', function(){
+      Prism.highlightAll()  
+  });    
+})
 
 // Landing page controller
 .controller('LandingController',['$scope', 'LandingData', function($scope, LandingData){
@@ -78,13 +84,13 @@ var mainApp = angular.module('MainApp', ['ngRoute', 'ui.bootstrap'])
 // Landing page data
 .factory('LandingData', ['$http', function($http){
   var Url   = "data/content.csv";
-  var LandingData = $http.get(Url).then(function(response){
+  var test = $http.get(Url).then(function(response){
      arr = CSVToArray(response.data);
      var ret = {}
      arr.map(function(d) {ret[d.section] = d.content})
      return ret
   })
-  return LandingData
+  return test
 }])
     
 

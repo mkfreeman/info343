@@ -2,7 +2,7 @@
 
 <h2>Summary</h2>
 
-<p>Web development skills don't just allow you to create slick web pages -- they enable you to communicate important information to broad audiences.  In this exercise, you'll create an interactive map of the crowdsourced police shootings <a href="http://regressing.deadspin.com/deadspin-police-shooting-database-update-were-still-go-1627414202" target="_blank">data</a>  that was <a href="http://regressing.deadspin.com/deadspin-police-shooting-database-update-were-still-go-1627414202" target="_blank">crowdsourced from Deadspin</a> last fall.</p>
+<p>Web development skills don't just allow you to create slick web pages -- they enable you to communicate important information to broad audiences.  In this exercise, you'll create an interactive map of the crowdsourced police shootings <a href="http://regressing.deadspin.com/deadspin-police-shooting-database-update-were-still-go-1627414202" target="_blank">data</a>  that was <a href="http://regressing.deadspin.com/deadspin-police-shooting-database-update-were-still-go-1627414202" target="_blank">crowdsourced from Deadspin</a> last fall.  This project will challenge you to stretch your functional programming skills, as well as independently learn a new library, so I suggest getting started early.</p>
 
 <p></p>
 
@@ -12,35 +12,38 @@
 <ul>
     <li>Cloning a GitHub repository</li>
     <li>Requesting data using an AJAX call</li>
+    <li>Practice your data manipulation skills using JavaScript</li>
     <li>Creating an interactive map using Leaflet.js</li>
     <li>Deploy a web site to a web server using git</li>
 </ul>
 
 <h2>Resources</h2>
 
-<p>We'll have a lecture that introduces the skills described above, and those should be used as a springboard to build a creative interactive visualization using the data provided.</p>
+<p>Prior to this challenge, we'll cover the necessary JavaScript skills for data manipulation.  However, this challenge requires you to go out and learn how to use a new library (leaflet.js).  The base repository has the necessary skeleton to get started, but you'll have to go out and learn the syntax for using the library.</p>
 
 <h3>Relevant Slides from Class</h3>
 
 <ul class="resources">
-    <li class="resource slides"><a target="_blank" href="lectures/leaflet">Building interactive maps</a></li>
+    <li class="resource slides"><a target="_blank" href="lectures/javascript">JavaScript</a></li>
+    <li class="resource slides"><a target="_blank" href="lectures/jquery">jQuery</a></li>
 
 </ul>
 
 <h3>Resources on the Web</h3>
 
 <ul class="resources">
-    <li class="resource reading"><a target="_blank" href="http://www.w3schools.com/jquery/ajax_ajax.asp">W3 Schools AJAX</a></li>
     <li class="resource reading"><a target="_blank" href="http://leafletjs.com/">Leaflet.js</a></li>
+    <li class="resource reading"><a target="_blank" href="http://www.w3schools.com/jquery/ajax_ajax.asp">W3 Schools AJAX</a></li>
 </ul>
+<p>To give you an idea of what you will build, here's a screenshot of one implementation (you may choose different colors, maptiles, layers, labels, etc.)</p>.
+<p><img class="img-responsive screenshot" src="img/screenshots/police-shooting/final.png" alt="Screenshot of page"></p>
+<h2>Required Steps</h2>
 
-<h2>Required Features</h2>
-
-<p>This challenge begins by providing you with step by step instructions. This should get you started, but the core of this challenge is about designing an interactive map that creatively and movingly presents the data provided.  The steps will help you get set up, but then its up to you to design the interactivity of your map.  If you have any questions about ideas, <a ng-href="mailto:kshino@uw.edu"> ask your TA,</a> or <a href="mailto:mikefree@uw.edu">ask Mike</a>.</p>
+<p>This challenge begins by providing you with step by step instructions. This should get you started, but the core of this challenge is about working with data in JavaScript.  There are some hints below on how to use the Leaflet.js syntax, but you will be responsible for implementing these skills in a thoughtful way.  If you get stuck (beyond what Stackoverflow can help with), <a ng-href="mailto:kshino@uw.edu"> ask your TA,</a> or <a href="mailto:mikefree@uw.edu">ask Mike</a>.</p>
 
 <h3>Fork and Clone the Repo</h3>
 
-<p>You should now be comfortable forking and cloning a repository using Gitub. This starting repository contains file stubs and the various assets you will need to complete the challenge.</p>
+<p>You should now be comfortable forking and cloning a repository using Gitub. The following repository contains file stubs and the various assets you will need to complete the challenge.</p>
 
 <ol class="steps">
     <li>Go to my <a target="_blank" href="https://github.com/mkfreeman/police-shooting">Police Shooting Repo</a> on GitHub</li>
@@ -53,40 +56,57 @@
     <li>Clone the repository to your local machine, just like you've done before.</li>
 </ol>
 
-<h3>Building your map</h3>
+<h3>Create a map</h3>
 
-<p>Your <code>index.html</code> file already has all of the necessary libraries and files included for you to begin building your map.  However, it does not actually call the function that will build your map.  Inside of the <code>&ltscript&gt</code> tag of your <code>index.html</code> file, call the function that draws your map (<code>drawMap</code>).</p>
-
-<p class="alert alert-warning">Note, the <code>drawMap</code> function must be called after the <code>&ltdiv id="container"&gt</code> element is created in your<code>index.html</code> file.  This is because the function depends on the existence of a container <code>&ltdiv&gt</code> element.  Alternatively, in your <code>drawMap</code> function, you could first append a container <code>&ltdiv&gt</code> to build your map in, and reference that div's id.</p>
-
-<p>In your <code>map.js</code> file, there are three empty functions already waiting for you.  In the first function, <code>drawMap</code>, you should follow the code pattern demonstrated in class to build a map using Leaflet.js.  Feel free to use the same maptiles we used in class (<a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>), or seek out some different styles from another map tile provider such as <a href="https://www.mapbox.com/developers/" target="_blank">Mapbox</a>.  Once you've completed this step, your maptiles should appear within the container div on your page.</p>
-
-<p>In the second function, <code>getData</code>, you should write an AJAX request that gets data from the (local) file <code>data/response.json</code>.  This file contains an array of objects, one for each shooting incident.  When the AJAX request is successful, you should call the third function, <code>customBuild</code>. 
+<p>Your <code>index.html</code> file already has all of the necessary libraries and files included for you to begin building your map.  However, it does not actually call the function that will build your map.  Inside of the <code>&ltscript&gt</code> tag of your <code>index.html</code> file, call the function that draws your map.
+    <pre >
+<code class="language-html">
+&lt;script&gt;
+    drawMap()
+&lt;/script&gt;</code>
+</pre>
 </p>
 
-<p class="alert alert-warning">Note, the <code>customBuild</code> function must be called inside the data request, only once the AJAX call has completed successfully.  This is because of the asynchronous nature of the request (i.e., your JavaScript code would keep running before the data was returned if you just wrote it in line).</p>
+
+<p>In your <code>map.js</code> file, there are three empty functions already waiting for you.  In the first function, <code>drawMap</code>, you'll actually add the map to your page.  Many web-maps (like the one your create), are actually comprised of small image files called <a href="https://www.mapbox.com/guides/how-web-maps-work/" target="_blank">maptiles</a> that are stitched together. <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> is a tile service that doesn't require you to create an account, though the tiles from <a href="https://www.mapbox.com/developers/" target="_blank">Mapbox</a> are a little nicer looking (both are free to use).  
+
+<p>To create your map, follow these steps:
+<ol>
+    <li>Create a <code>map</code> variable, and use the <code>setView</code> method to define how the map is centered and zoomed (you'll need to determine the appropriate positioning)</li>
+    <pre><code class="language-javascript">var map = L.map('your-div-container-name').setView([latitude, longitude], center)</code></pre>
+    <li>Create a tile-layer, and add it to your map.  This tells the Leaflet library where the maptiles are coming from (this is the syntax for openstreetmapStreetMap).</li>
+    <pre><code class="language-javascript">var layer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png')</code></pre>
+    <li>Then, simply add your tile layer to your map.</li>
+    <pre><code class="language-javascript">layer.addTo(map)</code></pre>
+</ol>
+Once you've completed this step, your maptiles (i.e., a blank map) should appear within the container div on your page.</p>
+
+<h3>Get your data</h3>
+<p>At the end of your <code>drawMap</code> function, you should call your  <code>getData</code> function. In the <code>getData</code> function, you should write a jQuery <a href="https://api.jquery.com/jquery.get/" target="_blank">AJAX request</a> that gets data from the (local) file <code>data/response.json</code>, which contains an array of objects, one for each shooting incident.  When the AJAX request is successful, you should call the third function, <code>customBuild</code>. 
+</p>
+
+<p class="alert alert-warning">Note, the <code>customBuild</code> function must be called after the AJAX call has completed successfully.  This is because of the asynchronous nature of the request (i.e., your JavaScript code would keep running before the data was returned if you just wrote it in line).</p>
 
 
-<h3>Do something creative</h3>
+<h3>Add points to your map</h3>
 
-<p>Simply building the map and showing locations of police shootings with hover text is a good start to this challenge, though we cover all of those skills in class.  Now is your chance to manipulate the map in novel ways to showcase a particular story in the data.  There are lots of powerful ways to introduce and display the data in this dataset.  First, think about the number of different dimensions of the data you have to work with:</p>
+<p>This is the core part of this challenge, in which you'll need to do the following:
+
 <ul>
-    <li>Date of the incident ('Date Searched')</li>
-    <li>Summary of the incident ('Summary')</li>
-    <li>Link to the news story ('Source Link')</li>
-    <li>If the person shot was killed ('Hit or killed?')</li>
-    <li>The race of the person shot ('Race')</li>
-    <li>Many more, just look at the properties of the data...</li>
+    <li>Create multiple <a href="http://leafletjs.com/examples/layers-control.html" target="_blank">LayerGroups</a> based on the data.  For example, I created a different LayerGroup for each race in the dataset (hint: <code class="language-javascript">var layerName = new L.LayerGroup([])</code>)</li>
+    <li>Create a circle for each data point (hint: <code class="language-javascript">var circle = new L.circleMarker([latitude, longitude], options)</code>)</li>
+    <li>Add each data point to the appropriate layer (<b>not</b> directly to the map). (hint: <code class="language-javascript">circle.addTo(layer)</code>)</li>
+    <li>Manipulate the appearance (size, color) of each circle based on it's data (I used whether or not the victim was killed to change color).</li>
+    <li>Add hover text to each data point based on its description (hint: <code class="language-javascript">circle.bindPopup(text)</code>)</li>
 </ul>
+In order to add points to your map, you'll need to loop through your data, and perform the above steps in thoughtful ways.  For example, think about how to efficiently create new layers for each group (i.e., race) without looping through the data multiple times.</p>
 
-While this is not a data visualization course, you can easily imagine the different ways in which you may want to show different variables of interest.  Here are some ideas to get you started:</p>
-<ul>
-    <li>Changing the color or opacity of each marker based on race</li>
-    <li>Adding different <a href="http://leafletjs.com/examples/layers-control.html" target="_blank">layers</a> to your map, based on race, outcome, or year.</li>
-    <li>Animating the display of each marker (i.e., bring them in one at a time, or by month -- this could be tricky...)</li>
-    <li>Changing the size of each marker based on the age of the person</li>
-</ul>
+<p>After adding all points to your layers, you'll need to add those layers to the map in order to view them (same syntax as adding the tile layer).  Finally, in order to add the ability to control the visibility of layers, use the following syntax:
+<pre><code class="language-javascript">
+L.control.layers(null,layers).addTo(map);
+</code></pre>
 
+Leaflet expects the <code>layers</code> variable above to be an object with key-value pairs of layer names and layer objects. See the tutorial example <a href="http://leafletjs.com/examples/layers-control.html" target="_blank">here</a> for reference.  This will create the control button in the top-right of your map.</p>
 
 <h3>Additional information</h3>
 
@@ -97,5 +117,3 @@ While this is not a data visualization course, you can easily imagine the differ
         <li>Any other information that you believe helps contextualize your project</li>
     </ul>
 </p>
-
-
