@@ -12,6 +12,9 @@
 							<td>Time:</td>
 							<td ng-bind="content.time"></td>
 						</tr>
+							<td>Lab:</td>
+							<td ng-bind="content.lab"></td>
+						</tr>
 							<td>Location:</td>
 							<td><a href="http://uw.edu/maps/?mgh" target="_blank">{{content.location}}</a></td>
 						</tr>
@@ -19,7 +22,7 @@
 							<td ng-bind="content.credits"></td>
 						</tr>
 						<td>Office Hours:</td>
-							<td>T/W: 2:30 - 4:00, MGH 330K</td>
+							<td>T/W: 2:30 - 4:00, MGH 330C</td>
 						</tr>
 					</table>
 				</div>
@@ -36,7 +39,7 @@
 					<h2>Teaching Assistant</h2>
 					<div ng-bind="content.ta"></div>
 					<div ng-bind="content.ta_position"></div>
-					<a href="mailto:{{content.ta_email}}?Subject=Info343%20question" target="_top">Email</a>
+					<a ng-if="section" href="mailto:{{content.ta_email}}?Subject=Info343%20question" target="_top">Email</a>
 				</div>
 			</div>
 		</div>
@@ -72,7 +75,7 @@
 			<th>Date</th>
 			<th>Topic</th>
 			<th>Due</th>
-			 <tr ng-repeat="lecture in lectures">
+			 <tr ng-repeat="lecture in lectures | filter :scheduleFilter">
 			 	<td>{{lecture.date}}</td>
 			 	<td ng-if="lecture.url"><a href="lectures/{{lecture.url}}" target="_blank">{{lecture.title}}</a></td>
 			 	<td ng-if="!lecture.url">{{lecture.title}}</td>

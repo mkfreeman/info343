@@ -1,0 +1,142 @@
+<h1 class="challenge-title">Mobile first: desinging with Bootstrap</h1>
+<h2>Summary</h2>
+
+<p>The essential HTML and CSS skills you practiced and mastered in the <a target="_blank" href="#/challenges/html-css">previous challenge</a> enable you to build attractive web pages, but those pages are still fairly limited in terms of page layout. Professionally-designed pages typically use more sophisticated layout techniques, such as multiple side-by-side columns and absolute positioning.</p>
+
+<p>Professionally-implemented web pages are also increasingly "responsive," meaning they respond to different screen sizes by adjusting layout, font sizes, graphics, etc. The same responsive page can look fantastic and deliver a great user experience on everything from a small phone screen to a giant high-definition monitor.</p>
+
+<p>In this challenge you will practice and master the skills necessary to create complex and responsive page layouts. To make our lives a little easier, we will use a responsive CSS framework called <a target="_blank" href="http://getbootstrap.com/">Bootstrap</a>, which was developed by the good folks at Twitter. Bootstrap defines a bunch of CSS classes for us that make building complex and responsive layouts much easier. It also applies a bunch of default formatting to the standard HTML elements based on the principles of good graphic design.</p>
+
+<h2>Objectives</h2>
+
+<p>By completing this challenge, you will practice and demonstrate mastery of the following skills:</p>
+
+<ul>
+    <li>Adding the Bootstrap CSS framework to your web pages to automatically improve the graphic design</li>
+    <li>Using the Bootstrap grid system to create multi-column page layouts</li>
+    <li>Using media queries to adjust page layout and other formatting based on the screen size</li>
+    <li>Using relative and absolute positioning to place elements exactly where you want them</li>
+</ul>
+
+<h2>Resources</h2>
+
+<p><strong>We will learn the techniques necessary to complete this challenge in class</strong>, but the following resources will also help you. If you don't already know how to complete all the steps below, take a few minutes to review these resources before you begin.</p>
+
+<h3>Relevant Slides from Class</h3>
+
+<ul class="resources">
+    <li class="resource slides"><a target="_blank" href="lectures/bootstrap">Mobile first: how to design for mobile with Bootstrap</a></li>
+
+</ul>
+
+<h3>Other Resources on the Web</h3>
+
+
+<ul class="resources">
+    <li class="resource video"><a target="_blank" href="https://www.youtube.com/watch?v=YXVoqJEwqoQ">Bootstrap 3 Video Tutorials</a></li>
+    <li class="resource reading"><a target="_blank" href="http://getbootstrap.com/getting-started/">Getting Started with Bootstrap</a></li>
+    <li class="resource reading"><a target="_blank" href="http://www.w3schools.com/css/css_positioning.asp">CSS Positioning</a></li>
+    <li class="resource reading"><a target="_blank" href="http://www.w3schools.com/css/css_mediatypes.asp">CSS Media Types</a></li>
+</ul>
+
+<h2>Required Steps</h2>
+
+<p>In this challenge, you will build upon the work you did in the previous challenge. We will alter the page you built to give it a multi-column layout in some sections, give it some internal page navigation links, and make it responsive.</p>
+
+<p>To give you an idea of what you will build, here's what the page will look like on medium and large monitors (width &gt;= 922px):</p>
+
+<p><img class="img-responsive screenshot" src="img/screenshots/layout/full-page-md.png" alt="screenshot of page on large screen"></p>
+
+<p>And here is what it will look like on a small phone screen:</p>
+
+<p><img class="img-responsive screenshot" src="img/screenshots/layout/full-page-xs.png" alt="screenshot of page on small scren"></p>
+
+<p class="alert alert-warning">As before, the goal here is not a pixel-perfect recreation of these screen shots, but your solution should be very close, and it should be responsive to screen size in the ways I describe. I will provide you with the specific measurements, fonts, colors, etc.</p>
+
+<h3>Fork and Clone the Repo</h3>
+
+<p>Just as you did in <a target="_blank" href="#/challenges/html-css">the previous challenge</a>, sign in to GitHub and fork <a target="_blank" href="https://github.com/mkfreeman/layout-challenge">my layout challenge repository</a> into your own account. Then clone <strong>your forked repo</strong> to your local machine (not my original one).</p>
+
+<p>After you've cloned, copy over the <code>index.html</code> and <code>css/main.css</code> files you built for the previous challenge into this new repository. We will edit the HTML file a bit, and change the styles so that we get different layouts on differently-sized screens.</p>
+
+<h3>The HTML Page</h3>
+
+<p>Open your <code>index.html</code> file (the one you copied over from the previous challenge) in your editor, and make the following changes:</p>
+
+<ul>
+    <li>Remove the link to the <code>css/normalize.css</code> stylesheet, and replace it with a link to the Bootstrap minified stylesheet, which you can load directly from the <a target="_blank" href="http://www.bootstrapcdn.com/">Bootstrap Content Delivery Network (CDN)</a>. Bootstrap already includes all the normalize styles at the top of their stylesheet. Make sure the Bootstrap one appears before your <code>css/main.css</code> so that we can adjust some of the Bootstrap styles.
+        <div class="alert alert-warning">When adding style sheet links using absolute URLs (e.g., those pointing to a CDN and not your web server), it's a good idea to use the <code>https://</code> protocol instead of <code>http://</code>. Browsers will often show errors or fail to load resources from HTTP URLs when the original page itself was loaded from an HTTPs URL. If you omit the protocol altogether (i.e., the URL starts with <code>//</code>), the browser will use the same protocol as it used for the original page, but if you load that page from the file system (i.e., you double-click the file, or use "Open In Browser" from your editor), the protocol will be <code>file://</code>, which won't work with a CDN (the CDN isn't in your local file system). The easiest way to make sure you are covered in every scenario is simply to always use HTTPS for these absolute URLs to extra resources.</div>
+    </li>
+
+    <li>Add the following navigation links to your page header section, just after the 'Feeding Hungry Huskies Since 2013' paragraph:
+        <pre>
+&lt;nav role=&quot;navigation&quot;&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&quot;#location&quot;&gt;location&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#menu&quot;&gt;menu&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#about&quot;&gt;about&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+        </pre>
+        <div class="alert alert-warning">It's customary now to use <code>&lt;ul&gt;</code> and <code>&lt;li&gt;</code> elements nested within a <code>&lt;nav&gt;</code> element for navigation links. The navigation links are a set of related items, hence the <code>&lt;ul&gt;</code> and <code>&lt;li&gt;</code> elements, and <code>&lt;nav&gt;</code> is the standard HTML 5 element for navigation content. The <code>role=&quot;navigation&quot;</code> attribute is used by screen readers and other assistive technologies to find the navigation links on the current page.</div>
+    </li>
+
+    <li>Add the necessary elements and predefined <a target="_blank" href="http://getbootstrap.com/css/#grid">Boostrap style classes</a> to produce a 3-column layout in the restaurant information section, and a 2-column layout in the menu section on medium screens and wider, as shown in the screen shots above (hint: you'll want to use the <code>col-md-*</code> class names so that the columns are side-by-side on medium to large screens). The columns should collapse to be stacked on top of one another on screens narrower than 992 pixels. Remember that Bootstrap grid rows must exist within an element that has either the <code>container</code> or <code>container-fluid</code> style class. You want to use <code>container-fluid</code>, and the logical place to add that style class would be your main page content element.</li>
+</ul>
+
+<h3>Your Stylesheet</h3>
+
+<p>Now open your <code>css/main.css</code> file in your editor. Our previous styles were great for a large screen, but we want to separate those now into two groups: those that apply to all devices, including small phone screens; and those that should apply only when the screen width is 992 pixels or wider. You can use a <a target="_blank" href="http://www.w3schools.com/cssref/css3_pr_mediaquery.asp">media query</a> to segment your styles into these two sets.</p>
+
+<h4>Formatting for All Devices</h4>
+
+<p>Most of the style rules you created before still apply to all devices, but we need to make a few changes in order to get the different layout you see in the small-device screenshot above:</p>
+
+<ul>
+    <li>The background image on the body should be applied only when the width is 992px and wider; narrower devices should not have a background image, as the content will fill the entire width of the screen</li>
+
+    <li>The margins you used to apply to the main page content element should be applied only when the width is 992px or wider; on narrower devices, the page content should fill the entire width of the screen</li>
+
+    <li>The font size on the body should be reduced to <code>16px</code> (we will increase it to 18px on larger screens)</li>
+
+    <li>The Bootstrap <code>.container-fluid</code> rule will apply a top and bottom margin to the element, but we want that element to be right up against the top of the page on small screens, so create a rule with the same class selector and set the top and bottom margins to <code>0</code></li>
+
+    <li>The tag line ('Feeding Hungry Huskies Since 2013') should be displayed only when the width is 992px or wider; on narrower screens that element should <a target="_blank" href="http://www.w3schools.com/cssref/pr_class_display.asp">not be displayed</a></li>
+
+    <li>The <code>&lt;ul&gt;</code> element within the <code>&lt;nav&gt;</code> element should have padding and margins of <code>0</code> on all sides</li>
+
+    <li>The <code>&lt;li&gt;</code> elements within the <code>&lt;nav&gt;</code> element should have <a target="_blank" href="http://www.w3schools.com/cssref/pr_list-style-type.asp">no bullets</a>, should be displayed as <code><a target="_blank" href="http://www.w3schools.com/cssref/pr_class_display.asp">inline-block</a></code> elements, and should have a right margin of <code>1em</code></li>
+
+    <li>The navigation hyperlinks themsleves should have the color <code>#55E</code>, but that should change to <code>#00E</code> when the readers hovers the mouse over or sets focus to them</li>
+
+</ul>
+
+<h4>Formatting for Medium and Large Screens (992px and Wider)</h4>
+
+<p>When the screen size is <code>992px</code> or larger, apply the following additional formatting:</p>
+
+<ul>
+    <li>As was noted above, the body background image should be applied for these sized screens, in exactly the same way as you did for the previous challenge</li>
+
+    <li>Also as noted above, the tag line should be displayed for these sized screens</li>
+
+    <li>The body font size should also be increased to <code>18px</code></li>
+
+    <li>The Bootstrap <code>.container-fluid</code> rule should be altered to set the left margin to <code>30%</code>, and the top, right, and bottom margins to <code>20px</code></li>
+
+    <li>The entire <code>&lt;nav&gt;</code> element should be <a target="_blank" href="http://www.w3schools.com/cssref/pr_class_position.asp">positioned</a> <code>10px</code> from the top and right of the page header element</li>
+</ul>
+
+
+
+<h3>Review Your Page</h3>
+
+<p>You've now added all the content and style rules to make your page look like the screen shots. Look at it in the browser and if something doesn't look correct, review that part of the page and style rules. Remember, it doesn't have to be pixel-perfect, but it should be close, and should respond to the screen width as described.</p>
+
+<p>If everything looks and behaves correctly, you now know how to build responsive web pages with complex layouts&mdash;congratulations! You could definitely start building interesting web sites for clients.</p>
+
+<h3>Add, Commit, Push, and Deploy</h3>
+
+<p>Once you've verified that your page looks and behaves correctly, add and commit your changes to your local repository, push those changes back to your GitHub repository, and deploy your site to your student web server. If you've forgotten how to do that, review the <a target="_blank" href="#/challenges/git">Managing Your Files challenge</a>.</p>
+
+<p>After you've verified that you can view your published site in a your web browser, submit the link to it and your GitHub repository via the form on this page.</p>

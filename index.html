@@ -21,14 +21,15 @@
 <body>
 	
 	<main ng-app="MainApp" ng-controller="MainCtrl">
-		<h1 ><a href='#/'>INFO 343: Client-side Web Development</a></h1>
+		section: {{homeLink}}
+		<h1 ><a ng-href='#/{{homeLink}}'>INFO 343{{section}}: Client-side Web Development</a></h1>
 		<div class="row nav-links">
 			<div class="btn-group btn-group-justified" role="group" aria-label="...">
 			  <div class="btn-group" role="group">
-			    <a href="#/lectures"><button type="button" class="btn btn-default">Lectures</button></a>
+			    <a ng-href="#{{lecturesLink}}"><button type="button" class="btn btn-default">Lectures</button></a>
 			  </div>
 			  <div class="btn-group" role="group">
-			    <a href="#/challenges"><button type="button" class="btn btn-default">Challenges</button></a>
+			    <a ng-href="#{{challengesLink}}"><button type="button" class="btn btn-default">Challenges</button></a>
 			  </div>
 			</div>
 		</div>

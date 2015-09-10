@@ -104,6 +104,9 @@ a {
 	font-size:22px !important;
 }
 
+p.title {
+  margin-bottom:0px;
+}
 a:hover {
 	color:#67B3F4 !important;
 }

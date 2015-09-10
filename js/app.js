@@ -1,45 +1,64 @@
+var test1;
 // Start app
 var mainApp = angular.module('MainApp', ['ngRoute', 'ui.bootstrap'])
 
+// Constants
+.constant()
 // Config route provider
 .config(function($routeProvider) {
   $routeProvider
-   .when('/challenges/:challenge_id?', {
+   .when('/:section?/challenges/:challenge_id?', {
     templateUrl: 'pages/challenges.html',
     controller: 'ChallengeController',
   })
-   .when('/lectures/', {
+   .when('/:section?/lectures', {
     templateUrl: 'pages/lectures.html',
     controller: 'LectureController',
   })
-   .when('/final-projects/',{
+   .when('/:section?/final-projects',{
     templateUrl:'pages/final-projects.html', 
     controller:'ProjectController'
    })
-   .when('/', {
+   .when('/:section?', {
     templateUrl: 'pages/landing.html',
-    controller: 'LandingController',
+    controller: 'MainCtrl',
   })
 })
 
+
 // Main controller
-.controller('MainCtrl', function($scope) {
+.controller('MainCtrl', function($scope, $routeParams) {
+	 $scope.$on('$routeChangeSuccess', function() {
+	 	$scope.section = $routeParams.section == 'a' | $routeParams.section == 'c' ? $routeParams.section : undefined
+	 	$scope.homeLink = $scope.section == 'a' | $scope.section == 'c' ?  $scope.section + '' : ''
+		$scope.lecturesLink = $scope.section == 'a' | $scope.section == 'c' ?  $scope.section + '/lectures' : '/lectures'
+		$scope.challengesLink = $scope.section == 'a' | $scope.section == 'c' ?  $scope.section + '/challenges' : '/challenges'
+  	});
+	
   $scope.$on('$includeContentLoaded', function(){
       Prism.highlightAll()  
   });    
 })
 
 // Landing page controller
-.controller('LandingController',['$scope', 'LandingData', function($scope, LandingData){
+.controller('LandingController', function($scope, LandingData, $routeParams){
   LandingData.then(function(data){
+  	var specifiedSection = $scope.section == undefined ? false : true
     $scope.content = data;
+    $scope.content.time = specifiedSection == true ? data['time_' + $scope.section] : data.time
+    $scope.content.ta = specifiedSection == true ? data['ta_' + $scope.section] : data.ta
+    $scope.content.lab = specifiedSection == true ? data['lab_' + $scope.section] : data.lab
   });
-}])
+})
 
 // Challenge Controller
 .controller('ChallengeController', function($scope, $q, $routeParams, ChallengeData, ChallengeRubric){
   $q.all([ChallengeData, ChallengeRubric]).then(function(values){    
     $scope.challenges = values[0];    
+    console.log('section ', $scope.section)
+    $scope.challenges.map(function(d){
+    	d.date = $scope.section == undefined ? d.date :d['date_' + $scope.section]
+    }) 
     $scope.rubrics = {}
     values[1].map(function(d) {
       if($scope.rubrics[d.challenge_id] == undefined)$scope.rubrics[d.challenge_id] = []
@@ -47,16 +66,18 @@ var mainApp = angular.module('MainApp', ['ngRoute', 'ui.bootstrap'])
     })
     $scope.currentChallenge = $routeParams.challenge_id
     $scope.currentRubric = $scope.rubrics[$routeParams.challenge_id]
-    $scope.submitUrl = $scope.challenges.filter(function(d) { return d.challenge_id == $scope.currentChallenge})[0].submitUrl
+    $scope.submitUrl = $scope.currentChallenge == undefined ? '' : $scope.challenges.filter(function(d) { return d.challenge_id == $scope.currentChallenge})[0].submitUrl
   })
 })
 
 // Lecture controller
-.controller('LectureController',['$scope', 'Items', function($scope, Items){
-  Items.then(function(data){
-    $scope.items = data;
+.controller('LectureController', function($scope, $routeParams, Items){
+  Items.then(function(data){  	
+    $scope.items = data.filter(function(d) {
+    	return d.has_lecture == 'TRUE'
+    })
   });
-}])
+})
 
 // Final project controller
 .controller('ProjectController',['$scope', 'ProjectData', function($scope, ProjectData){
@@ -70,14 +91,24 @@ var mainApp = angular.module('MainApp', ['ngRoute', 'ui.bootstrap'])
 .controller('ScheduleController', function($scope, $q, ChallengeData, Items){
   $q.all([ChallengeData, Items]).then(function(values){    
     $scope.challenges = values[0];    
+
     $scope.lectures = values[1];
+    $scope.challenges.map(function(d){
+    	d.date = $scope.section == undefined ? d.date :d['date_' + $scope.section]
+    }) 
+    $scope.lectures.map(function(d){
+    	d.date = $scope.section == undefined ? d.date :d['date_' + $scope.section]    	
+    }) 
     $scope.challenges.map(function(challenge){
       var lecture = $scope.lectures.filter(function(lecture){
-        return lecture.date == challenge.due
+        return lecture.date == challenge.date
       })[0]
-      if(lecture == undefined) return
+      if(lecture == undefined || lecture.date == '') return
       lecture.due = challenge.title
       lecture.challengeUrl = challenge.challenge_id
+      $scope.scheduleFilter = function(d) {
+      	return d.date != ''
+      }
     })
   })
 })

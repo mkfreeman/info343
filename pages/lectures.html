@@ -4,6 +4,9 @@
 		<div ng-if="lesson.url">
 			<a class="title" target="_blank" href='lectures/{{ lesson.url}}'>{{lesson.title}}</a>
 		</div>
+		<div ng-if="!lesson.url">
+			<p class="title">{{lesson.title}}</a>
+		</div>
 		<div class="description">{{lesson.description}}</div>
 	</div>
 </main>

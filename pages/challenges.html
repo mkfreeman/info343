@@ -5,7 +5,7 @@
 			<a class="title" href="#/challenges/{{challenge.challenge_id}}">{{challenge.title}}</a>
 		</div>
 		<div class="description">{{challenge.description}}</div>
-		<div class="details"><p>Due: {{challenge.due}}, {{challenge.points}} points</p></div>
+		<div class="details"><p>Due: {{challenge.date}}, {{challenge.points}} points</p></div>
 	</div>
 	<div class="challenge" ng-if="currentChallenge" ng-include="'challenges/' + currentChallenge + '.html'"></div>
 	 <div class="challenge" ng-if="currentChallenge">
