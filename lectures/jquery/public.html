@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-		<html class="sl-root decks export loaded ua-phantomjs reveal-viewport theme-font-josefine theme-color-silver-blue">
+	<html class="sl-root decks export loaded ua-phantomjs reveal-viewport theme-font-josefine theme-color-silver-blue">
 	<head>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/headjs/0.96/head.min.js"></script>
 		<link rel="stylesheet" href="../../lib/reveal/css/custom.css" />
@@ -349,6 +349,8 @@ $.ajax({
 
 
 		
+
+		
 <script>
 	var SLConfig = {"current_user":{"id":301744,"username":"michaelfreeman","name":"Michael Freeman","description":null,"thumbnail_url":"https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=50","pro":false,"enterprise":false,"enterprise_manager":false,"settings":{"id":129987,"present_controls":true,"present_upsizing":true,"editor_grid":true,"editor_snap":true,"developer_mode":false},"registered":true,"email":"michael.k.freeman@gmail.com","notify_on_receipt":true,"billing_address":null,"editor_tutorial_completed":true},"deck":{"id":411820,"slug":"jquery","title":"jquery","description":"","visibility":"all","published_at":"2015-05-12T03:48:16.768Z","sanitize_messages":null,"thumbnail_url":"https://s3.amazonaws.com/media-p.slid.es/thumbnails/secure/ffcb0e/decks.jpg","view_count":3,"user":{"id":301744,"username":"michaelfreeman","name":"Michael Freeman","description":null,"thumbnail_url":"https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=50","pro":false,"enterprise":false,"enterprise_manager":false,"settings":{"id":129987,"present_controls":true,"present_upsizing":true},"registered":true},"background_transition":"slide","transition":"slide","theme_id":null,"theme_font":"montserrat","theme_color":"white-blue","auto_slide_interval":0,"comments_enabled":true,"forking_enabled":true,"rolling_links":false,"center":false,"should_loop":false,"rtl":false,"version":2,"access_token":"RzsujzxzX4ZKQuMiSxiwcVqZSDQr","notes":{}}};
 </script>
@@ -381,15 +383,10 @@ else if(wr){var t="/",r=wr.getAttribute("id");r&&(r=r.toLowerCase(),r=r.replace(
 				rtl: SLConfig.deck.rtl || false,
 
 				transition: 'none',
-				backgroundTransition: SLConfig.deck.background_transition, 
-				multiplex:{
-                    secret: '14332597231408451346', // Obtained from the socket.io server. Gives this (the master) control of the presentation
-                    id: 'fe46ac8c457c31da', // Obtained from socket.io server
-					url: 'http://freeman01.ischool.uw.edu:1948' // Location of socket.io server
-                },              
+				backgroundTransition: SLConfig.deck.background_transition,            
                dependencies: [
                     { src: '//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.10/socket.io.min.js', async: true },
-                    { src: '../../lib/reveal/plugin/multiplex/master.js', async: true },              
+                    { src: '../../lib/reveal/plugin/multiplex/client.js', async: true },              
                     { src: '../../lib/reveal/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
                ]
 			});
