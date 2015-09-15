@@ -36,7 +36,7 @@
     <li class="resource reading"><a target="_blank" href="http://www.w3schools.com/jquery/ajax_ajax.asp">W3 Schools AJAX</a></li>
 </ul>
 <p>To give you an idea of what you will build, here's a screenshot of one implementation (you may choose different colors, maptiles, layers, labels, etc.)</p>.
-<p><img class="img-responsive screenshot" src="img/screenshots/police-shooting/final.png" alt="Screenshot of page"></p>
+<p><img class="img-responsive screenshot" src="img/screenshots/police-shooting/final.png" alt="Screenshot of page" style="border:1px solid black;padding:5px"></p>
 <h2>Required Steps</h2>
 
 <p>This challenge begins by providing you with step by step instructions. This should get you started, but the core of this challenge is about working with data in JavaScript.  There are some hints below on how to use the Leaflet.js syntax, but you will be responsible for implementing these skills in a thoughtful way.  If you get stuck (beyond what Stackoverflow can help with), <a ng-href="mailto:kshino@uw.edu"> ask your TA,</a> or <a href="mailto:mikefree@uw.edu">ask Mike</a>.</p>
@@ -108,7 +108,15 @@ L.control.layers(null,layers).addTo(map);
 
 Leaflet expects the <code>layers</code> variable above to be an object with key-value pairs of layer names and layer objects. See the tutorial example <a href="http://leafletjs.com/examples/layers-control.html" target="_blank">here</a> for reference.  This will create the control button in the top-right of your map.</p>
 
+<h3>Build a Cross-Tabulation</h3>
+<p>This part of the challenge requires you to demonstrate strong data manipulation skills.  Computing aggregate information from your data is a common task built into project requirements. While working with your data, you should compute total counts for 4 categories of your choice, and present them in a cross tabulation as seen here:</p>
+
+<img class="img-responsive screenshot" src="img/screenshots/police-shooting/cross-tab.png" alt="Screenshot of page" style="width:90%;border:1px solid black;margin:10px"></img>
+
+<p>Feel free to choose any groupings (i.e., gender, race, outcome, etc.) to present in the table.  There are no specific steps for you to follow here.  Think carefully about how to use objects to track data, and use jQuery to create the proper <a href="http://www.w3schools.com/html/html_tables.asp" target="_blank">table</a> elements.  And don't forget to add some nice <a href="http://getbootstrap.com/css/#tables" target="_blank">bootstrap classes</a>!</p>
+
 <h3>Additional information</h3>
+
 
 <p>Showcasing sensitive data requires that you properly introduce the topic and site your sources.  In addition to creating your map, your submitted webpage should include the following:
     <ul>
