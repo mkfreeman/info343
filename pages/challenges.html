@@ -1,34 +1,42 @@
 <main ng-controller="ChallengeController">		
-	<div ng-if="!currentChallenge" class="section">Challenges</div>
-	<div ng-if="!currentChallenge" class="lesson" ng-repeat="challenge in challenges">
+	<div ng-if="!currentChallengeId" class="section">Challenges</div>
+	<div ng-if="!currentChallengeId" class="lesson" ng-repeat="challenge in challenges">
 		<div>
-			<a class="title" href="#/challenges/{{challenge.challenge_id}}">{{challenge.title}}</a>
+			<a class="title" href="#{{challengesLink}}/{{challenge.challenge_id}}">{{challenge.title}}</a>
 		</div>
 		<div class="description">{{challenge.description}}</div>
-		<div class="details"><p>Due: {{challenge.date}}, {{challenge.points}} points</p></div>
-	</div>
-	<div class="challenge" ng-if="currentChallenge" ng-include="'challenges/' + currentChallenge + '.html'"></div>
-	 <div class="challenge" ng-if="currentChallenge">
-        <h2>Submit your attempt</h2>
-        <p>Your attempt will be graded using the following rubric:</p>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Criterion</th>
-                    <th>Weight</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="crit in currentRubric">
-                    <td>{{crit.label}}</td>
-                    <td>{{crit.weight * 100}}%</td>
-                    <td>{{crit.description}}</td>
-                </tr>
-            </tbody>
-        </table>
+		<div class="details"><p>Due: {{challenge.challengeDate}}, {{challenge.points}} points</p></div>
+	</div>    
+    <div class="challenge" ng-if="currentChallengeId">        
+        <h2><a ng-href="#{{challengesLink}}">&larr; Back to challenges</a></h2>
         <div>
-        	<a target="_blank" href="{{submitUrl}}"><button type="button" class="btn btn-success">Submit</button></a>
+            <img class="landing-icon" ng-src="img/challenges/{{currentChallengeId}}/landing-icon.png"></img>
+        </div>
+        <h1 class='challenge-title'>{{currentChallenge.title}}</h1>
+        <h3 class="challenge-subtitle">Due: {{currentChallenge.challengeDate}}, {{currentChallenge.points}} points</h3>
+    	<div class="challenge-description" ng-include="'challenges/' + currentChallengeId + '.html'"></div>
+    	 <div>
+            <h2>Submit your attempt</h2>
+            <p>Your attempt will be graded using the following rubric:</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Criterion</th>
+                        <th>Weight</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="crit in currentRubric">
+                        <td>{{crit.label}}</td>
+                        <td>{{crit.weight * 100}}%</td>
+                        <td>{{crit.description}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+            	<a target="_blank" href="{{submitUrl}}"><button type="button" class="btn btn-success">Submit</button></a>
+            </div>
         </div>
     </div>
 

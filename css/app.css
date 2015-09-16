@@ -13,6 +13,10 @@ body {
     color:rgb(242, 152, 152);
 }
 
+.lecture-details {
+  color:#78B8EF !important
+}
+
 .btn-default {
 	color: #337ab7
 }
@@ -163,9 +167,20 @@ table#details tr td:first-child{
 }
 
 .challenge-title {
-    opacity:.5;
+    opacity:.8;
+    margin-left:100px;
+    margin-bottom:0px;
 }
 
+.challenge-subtitle {
+  margin-left:100px;
+  margin-top:5px;
+  color:rgb(242, 152, 152);
+}
+
+.challenge-description {
+  margin-top:45px;
+}
 a {
   color: #337ab7 !important;
   text-decoration: none !important;
@@ -233,4 +248,11 @@ a {
 
 .active {
   color:black !important;
+}
+
+.landing-icon {
+  height:100px;
+  position: absolute;
+  z-index:-9999;
+  left:43px;
 }

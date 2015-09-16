@@ -75,8 +75,8 @@
 			<th>Date</th>
 			<th>Topic</th>
 			<th>Due</th>
-			 <tr ng-repeat="lecture in lectures | filter :scheduleFilter">
-			 	<td>{{lecture.date}}</td>
+			 <tr ng-if="lecture.lectureDate != ''"ng-repeat="lecture in lectures">
+			 	<td >{{lecture.lectureDate}}</td>
 			 	<td ng-if="lecture.url"><a href="lectures/{{lecture.url}}" target="_blank">{{lecture.title}}</a></td>
 			 	<td ng-if="!lecture.url">{{lecture.title}}</td>
 			 	<td><a href='#challenges/{{lecture.challengeUrl}}'>{{lecture.due}}</a></td>

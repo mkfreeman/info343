@@ -29,22 +29,22 @@ var mainApp = angular.module('MainApp', ['ngRoute', 'ui.bootstrap'])
 // Main controller
 .controller('MainCtrl', function($scope, $routeParams, $location) {
 	 $scope.$on('$routeChangeSuccess', function() {
+    // Globally scoped variables
     $scope.$location = $location;
 	 	$scope.section = $routeParams.section == 'a' | $routeParams.section == 'c' ? $routeParams.section : undefined
 	 	$scope.homeLink = $scope.section == 'a' | $scope.section == 'c' ?  $scope.section + '' : ''
 		$scope.lecturesLink = $scope.section == 'a' | $scope.section == 'c' ?  $scope.section + '/lectures' : '/lectures'
 		$scope.challengesLink = $scope.section == 'a' | $scope.section == 'c' ?  $scope.section + '/challenges' : '/challenges'
+    
+    // Function to change sections    
     $scope.changeSections = function(newSection) {
-      
-      var newPath = $scope.section != undefined && $scope.section != '' ? newSection + $location.path().substr(2,$location.path().length) : newSection 
-      alert($scope.section + ' ' + newPath + $routeParams)
-      console.log($routeParams)
+      var newPath = $scope.section != undefined && $scope.section != '' ? newSection + $location.path().substr(2,$location.path().length) : newSection + $location.path()
+      newPath = newPath.replace(/\/$/, "");
       $location.path(newPath)
-      // $routeParams.section = newSection
-      // $location.search('section', newSection)
     }
   });
 	
+  // Highlight using Prism
   $scope.$on('$includeContentLoaded', function(){
       Prism.highlightAll()  
   });    
@@ -53,8 +53,10 @@ var mainApp = angular.module('MainApp', ['ngRoute', 'ui.bootstrap'])
 // Landing page controller
 .controller('LandingController', function($scope, LandingData, $routeParams){
   LandingData.then(function(data){
-  	var specifiedSection = $scope.section == undefined ? false : true
-    $scope.content = data;
+  	var specifiedSection = $scope.section == 'a' | $scope.section == 'c' ? true : false
+    $scope.content = angular.extend({},data);
+    
+    // Get values for current section
     $scope.content.time = specifiedSection == true ? data['time_' + $scope.section] : data.time
     $scope.content.ta = specifiedSection == true ? data['ta_' + $scope.section] : data.ta
     $scope.content.lab = specifiedSection == true ? data['lab_' + $scope.section] : data.lab
@@ -64,27 +66,35 @@ var mainApp = angular.module('MainApp', ['ngRoute', 'ui.bootstrap'])
 // Challenge Controller
 .controller('ChallengeController', function($scope, $q, $routeParams, ChallengeData, ChallengeRubric){
   $q.all([ChallengeData, ChallengeRubric]).then(function(values){    
-    $scope.challenges = values[0];    
-    console.log('section ', $scope.section)
+    $scope.challenges = values[0].map(function(d) {return d})
+    
+    // Set date based on section
     $scope.challenges.map(function(d){
-    	d.date = $scope.section == undefined ? d.date :d['date_' + $scope.section]
+    	d.challengeDate = $scope.section == undefined ? d.date :d['date_' + $scope.section]
     }) 
+
+    // Get current rubric
     $scope.rubrics = {}
     values[1].map(function(d) {
       if($scope.rubrics[d.challenge_id] == undefined)$scope.rubrics[d.challenge_id] = []
       $scope.rubrics[d.challenge_id].push(d)
     })
-    $scope.currentChallenge = $routeParams.challenge_id
+    // Get current values
+    $scope.currentChallengeId = $routeParams.challenge_id
+    $scope.currentChallenge = $scope.currentChallenge == undefined ? '' : $scope.challenges.filter(function(d) { return d.challenge_id == $scope.currentChallengeId})[0]
     $scope.currentRubric = $scope.rubrics[$routeParams.challenge_id]
-    $scope.submitUrl = $scope.currentChallenge == undefined ? '' : $scope.challenges.filter(function(d) { return d.challenge_id == $scope.currentChallenge})[0].submitUrl
   })
 })
 
 // Lecture controller
 .controller('LectureController', function($scope, $routeParams, Items){
   Items.then(function(data){  	
-    $scope.items = data.filter(function(d) {
-    	return d.has_lecture == 'TRUE'
+    
+    // Filter down to items that have lectures
+    $scope.items = data.filter(function(d) { return d.has_lecture == 'TRUE'})
+    .map(function(d){
+      d.lectureDate = $scope.section == undefined ? d.date :d['date_' + $scope.section]
+      return d     
     })
   });
 })
@@ -100,28 +110,31 @@ var mainApp = angular.module('MainApp', ['ngRoute', 'ui.bootstrap'])
 // Schedule controller 
 .controller('ScheduleController', function($scope, $q, ChallengeData, Items){
   $q.all([ChallengeData, Items]).then(function(values){    
-    $scope.challenges = values[0];    
+    $scope.challenges = values[0]
+    $scope.lectures = values[1]
 
-    $scope.lectures = values[1];
-    $scope.challenges.map(function(d){
-    	d.date = $scope.section == undefined ? d.date :d['date_' + $scope.section]
-    }) 
+    // Set date given the section
     $scope.lectures.map(function(d){
-    	d.date = $scope.section == undefined ? d.date :d['date_' + $scope.section]    	
+      d.lectureDate = $scope.section == undefined ? d.date :d['date_' + $scope.section]     
     }) 
+    
+    // Set date given the section
+    $scope.challenges.map(function(d){
+    	d.challengeDate = $scope.section == undefined ? d.date :d['date_' + $scope.section]
+    }) 
+    
+    // Get challenge that correspods with lecture
     $scope.challenges.map(function(challenge){
       var lecture = $scope.lectures.filter(function(lecture){
-        return lecture.date == challenge.date
+        return lecture.date == challenge.challengeDate
       })[0]
       if(lecture == undefined || lecture.date == '') return
       lecture.due = challenge.title
-      lecture.challengeUrl = challenge.challenge_id
-      $scope.scheduleFilter = function(d) {
-      	return d.date != ''
-      }
+      lecture.challengeUrl = challenge.challenge_id      
     })
   })
 })
+
 // Landing page data
 .factory('LandingData', ['$http', function($http){
   var Url   = "data/content.csv";
