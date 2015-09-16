@@ -27,13 +27,23 @@ var mainApp = angular.module('MainApp', ['ngRoute', 'ui.bootstrap'])
 
 
 // Main controller
-.controller('MainCtrl', function($scope, $routeParams) {
+.controller('MainCtrl', function($scope, $routeParams, $location) {
 	 $scope.$on('$routeChangeSuccess', function() {
+    $scope.$location = $location;
 	 	$scope.section = $routeParams.section == 'a' | $routeParams.section == 'c' ? $routeParams.section : undefined
 	 	$scope.homeLink = $scope.section == 'a' | $scope.section == 'c' ?  $scope.section + '' : ''
 		$scope.lecturesLink = $scope.section == 'a' | $scope.section == 'c' ?  $scope.section + '/lectures' : '/lectures'
 		$scope.challengesLink = $scope.section == 'a' | $scope.section == 'c' ?  $scope.section + '/challenges' : '/challenges'
-  	});
+    $scope.changeSections = function(newSection) {
+      
+      var newPath = $scope.section != undefined && $scope.section != '' ? newSection + $location.path().substr(2,$location.path().length) : newSection 
+      alert($scope.section + ' ' + newPath + $routeParams)
+      console.log($routeParams)
+      $location.path(newPath)
+      // $routeParams.section = newSection
+      // $location.search('section', newSection)
+    }
+  });
 	
   $scope.$on('$includeContentLoaded', function(){
       Prism.highlightAll()  
