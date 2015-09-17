@@ -256,3 +256,11 @@ a {
   z-index:-9999;
   left:43px;
 }
+
+.replace-token {
+    background-color: #FFFF00;
+}
+
+.separated {
+  border-bottom:1px solid #d3d3d3;
+}

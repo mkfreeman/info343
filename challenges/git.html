@@ -1,192 +1,295 @@
-<h2>Summary</h2>
+<section class="separated">
+    <h2>Summary</h2>
 
-<p>One thing you will quickly discover is that a typical web site involves <em>a ton</em> of files. Every HTML page, every CSS stylesheet, every module of JavaScript, and every multimedia asset is a separate file, organized into a folder hierarchy. Even simple sites will typically have a dozen or more files, and large complex sites typically involve hundreds.</p>
+    <p>One thing you will quickly discover is that a typical web site involves <em>a ton</em> of files. Every HTML page, every CSS stylesheet, every module of JavaScript, and every multimedia asset is a separate file, organized into a folder hierarchy. Even simple sites will typically have a dozen or more files, and large complex sites typically involve hundreds.</p>
 
-<p>Managing changes to these files by hand can become complex and error prone, especially when a whole team is working on these files at the same time. Moving these files from your local development machine to your web server can also be difficult to manage, especially when you're unsure which files you've modified since you last published the site.</p>
+    <p>Managing changes to these files by hand can become complex and error prone, especially when a whole team is working on these files at the same time. Moving these files from your local development machine to your web server can also be difficult to manage, especially when you're unsure which files you've modified since you last published the site.</p>
 
-<p>Thankfully, there are a class of tools that are designed especially to make managing all these files much easier. They are called <span class="term">version control systems</span>, and the most popular of these in the open-source community is known as <a target="_blank" href="http://git-scm.com/">git</a>. Although git can be used to manage files on your local machine, it is commonly used with the collaborative, cloud-based repository service <a target="_blank" href="https://github.com/">GitHub</a>, which maintains a copy of your files in a central, secure, and backed-up location.</p>
+    <p>Thankfully, there are a class of tools that are designed especially to make managing all these files much easier. They are called <span class="term">version control systems</span>, and the most popular of these in the open-source community is known as <a target="_blank" href="http://git-scm.com/">git</a>. Although git can be used to manage files on your local machine, it is commonly used with the collaborative, cloud-based repository service <a target="_blank" href="https://github.com/">GitHub</a>, which maintains a copy of your files in a central, secure, and backed-up location.</p>
 
-<p>During this challenge, you will create a repository on GitHub, clone it to your local machine, add files, commit those changes, push them back to GitHub, and then deploy your web site to your student web server. If you complete all the steps, you will have learned the techniques necessary for managing and deploying a web site!</p>
+    <p>During this challenge, you will create a repository on GitHub, clone it to your local machine, add files, commit those changes, push them back to GitHub, and then deploy your web site to your student web server. If you complete all the steps, you will have learned the techniques necessary for managing and deploying a web site!</p>
 
-<p class="alert alert-warning">If you haven't already done so, you need to create a free <a target="_blank" href="https://github.com/">GitHub</a> account. Do that before proceeding.</p>
+    <h2>Objectives</h2>
+    <p>By completing this challenge, you will practice and demonstrate mastery of the following skills:</p>
 
-<p class="alert alert-warning">If you haven't already done so, you also need to <a target="_blank" href="http://www.washington.edu/itconnect/connect/web-publishing/shared-hosting/activating-shared-web-hosting/">activate the Web Publishing service for your UW account</a>. Do that as well before proceeding.</p>
+    <ul>
+        <li>Fork a repository on GitHub</li>
+        <li>Cloning a repository to a local machine</li>
+        <li>Writing a basic HTML page that links to resources in other files</li>
+        <li>Using git to add new files, commit changes, revert changes, and push those changes back to GitHub</li>
+        <li>Deploy a web site to a web server using git</li>
+    </ul>
 
-<p class="alert alert-warning">The git command line tools are already installed on the iSchool lab machines, but you can also <a target="_blank" href="http://git-scm.com/downloads">install it on your own computer</a> for free (Mac, Windows, or Linux). If you plan to do the other challenges on your own computer, you should definitely do this, as you will use git for every challenge. If you are afraid of the command line, you can also install the GitHub graphical tool (<a target="_blank" href="https://mac.github.com/">Mac</a> or <a target="_blank" href="https://windows.github.com/">Windows</a>), though you will still need to use the command line tools when deploying to your web server.</p>
+    <h2>Resources</h2>
+    <dl>
+        <dt><a href="http://git-scm.com/videos">Git Introductory Videos</a></dt>
+        <dd>Some short videos about getting started with git.</dd>
+        <dt><a href="https://git-scm.com/book/en/v2">Pro Git</a></dt>
+        <dd>A free online book that covers git inside and out. If you want to be a professional developer, read this book.</dd>
+        <dt><a href="https://help.github.com/">GitHub Help Pages</a></dt>
+        <dd>Lots of readable FAQs about how to use git and GitHub. If you get stuck or have a problem, this is a good place to look.</dd>
+    </dl>
+</section>
+<section class="separated">
+        <h2>So what is this <i class="term">git</i> thing anyway?</h2>
 
-<h2>Objectives</h2>
-<p>By completing this challenge, you will practice and demonstrate mastery of the following skills:</p>
+        <p>Git is a system that can store, retrieve, and merge various versions of your files. It's kind of like Dropbox and Google Docs, but with two big differences:</p>
+        <ol>
+            <li>New versions of your files must be explicitly
+                <term>committed</term> when they are ready. Git doesn't save a new version every time you save a file to disk. That approach works fine for word-processing documents, but not for programming files. You typically need to write some code, save it, load it in your browser, test it, debug, make some fixes, and test again before you're ready to commit a new version.</li>
 
-<ul>
-    <li>Creating repositories on GitHub</li>
-    <li>Cloning those repositories to a development machine</li>
-    <li>Writing a basic HTML page that links to resources in other files</li>
-    <li>Using git to add new files, commit changes, revert changes, and push those changes back to GitHub</li>
-    <li>Deploy a web site to a web server using git</li>
-</ul>
+            <li>For text files (which nearly all your web development files will be), git pays attention to changes at the line level, and not just the file level. That means it can automatically merge together different changes made to different parts of the same file.</li>
+        </ol>
 
-<h2>Resources</h2>
+        <p>Like Dropbox and Google Docs, git can show you all previous versions of a file and can quickly rollback to one of those previous versions. This is often helpful in web development, especially if you embark on making a massive set of changes, only to discover part way through that those changes were a bad idea (I speak from experience here &#x1F604).</p>
 
-<p>We will learn how to use git and GitHub in class, but the following freely-available resources will also help you complete this challenge. If you don't already know how to complete all the steps below, take a few minutes to read/watch these before you begin. If you get stuck, come back and consult these.</p>
+        <p>But where git really comes in handy is in team development. Almost all professional web development work is done in teams, which involves multiple people working on the same set of files at the same time. Git helps the team coordinate all these changes, and provides a record so that anyone can see how a given file ended up the way it did.</p>
 
-<h3>Relevant Slides from Class</h3>
+        <h3>Git Core Concepts</h3>
 
-<ul class="resources">
-    <li class="resource slides"><a target="_blank" href="http://faculty.washington.edu/mikefree/info343/lectures/intro">INFO 343 Course Intro Slides</a></li>
+        <p>To understand how git works, you need to understand its core concepts. Read this section carefully, and come back to it if you forget what these terms mean. We'll also review these ideas during lecture.</p>
+        <dl>
+            <dt>repository (repo)</dt>
+            <dd>A database containing all the committed versions of all your files, along with some additional metadata, stored in a hidden subdirectory named <code>.git</code> within your project directory. If you want to sound cool and in-the-know, call this a "repo."</dd>
 
-</ul>
+            <dt>commit</dt>
+            <dd>A set of file versions that have been added to the repository, along with the name of the person who did the commit, a message describing the commit, and a timestamp. This extra tracking information allows you to see when, why, and by whom changes were made to a given file. Committing a set of changes creates a "snapshot" of what that work looks like at the time---it's like saving the files, but more so.</dd>
 
-<h3>Resources on the Web</h3>
+            <dt>staging area</dt>
+            <dd>A set of new changes that are ready to be committed to the repository. This is somewhat like an email out-box: files ready to be committed by not actually "sent off" yet. All changes to all files in the staging area will be included in the next commit, but not changes made to other files. Git doesn't automatically add new files to the staging area, nor does it add new versions of existing files. Instead, you tell git explicitly which files you want to include in the next commit via the <code>git add</code> command. This allows you to commit some changes while leaving others for a latter commit.</dd>
 
-<ul class="resources">
-    <li class="resource video"><a target="_blank" href="http://git-scm.com/video/what-is-version-control">"Git Basics: What is Version Control?"</a></li>
-    <li class="resource video"><a target="_blank" href="http://git-scm.com/video/what-is-git">Git Basics: What is Git?</a></li>
-    <li class="resource video"><a target="_blank" href="http://git-scm.com/video/get-going">Git Basics: Get Going with Git</a></li>
-    <li class="resource reading"><a target="_blank" href="https://help.github.com/articles/set-up-git">Setting up Git</a></li>
-    <li class="resource reading"><a target="_blank" href="https://help.github.com/articles/create-a-repo">Create a Repo</a> on GitHub</li>    
-    <li class="resource reading">Chapters 1 and 2 of <a target="_blank" href="http://git-scm.com/book"><em>Pro Git</em></a></li>
-</ul>
+            <dt>branch</dt>
+            <dd>Branches are like different versions of your work that all live side by side. All git repositories start with one branch named <code>master</code>, but you can create other branches if you wish. Changes committed to one branch are kept separate from those committed to other branches, allowing you to work on new features or crazy ideas, but still quickly switch back to the main <code>master</code> branch.</dd>
 
-<h2>Required Steps</h2>
+            <dt>merge conflict</dt>
+            <dd>A condition that occurs when you merge commits pulled from another branch or repository that include changes to the same lines that you've already changed locally. In this case, git doesn't know which which version is correct, so you must resolve the conflict by choosing a winner, or manually combining the changes.</dd>
+        </dl>
 
-<p>To complete this challenge, follow these steps. If you get stuck, consult the resources above, <a ng-if="tas.length > 0" ng-href="mailto:kshino@uw.edu"> ask your TA,</a> or <a href="mailto:mikefree@uw.edu">ask Mike</a>.</p>
+        <h3>Git Core Commands</h3>
 
-<p class="alert alert-warning">Note that I won't typically tell you exactly how to do every step. Instead, I will provide links to resources that will help you figure out how to do that step. This will not only help you learn the skills, but also train you how to learn new skills in the future. Since web programming is always changing, you need to develop the ability to find out how to do new things by reading or watching resources on the Web.</p>
+        <p>Git offers many commands, but there is a small core set that you will use most of the time.</p>
 
-<h3>Create a New Repository on GitHub</h3>
+        <dl>
+            <dt><code>git clone <span class="replace-token">repository-url</span></code></dt>
+            <dd>Creates a new copy of a source repository, which typically exists on a remote server. Use this when you want to clone down a GitHub repository. This command will create a new subdirectory with the same name as the source repository.</dd>
 
-<p>First, go to <a target="_blank" href="https://github.com/">GitHub</a> and sign in to your account.</p>
+            <dt><code>git status</code></dt>
+            <dd>Tells you the current status of the git repository. It also often tells you what commands to execute next. If you are in doubt, execute <code>git status</code> and read what it says carefully!</dd>
 
-<p>Next <a target="_blank" href="https://help.github.com/articles/create-a-repo">create a repository</a> on GitHub named <code>files-challenge</code>. You can set the description to whatever you want. Keep the repository public, and initialize it with a README file.</p>
+            <dt><code>git add <span class="replace-token">file (or files)</span></code></dt>
+            <dd>Adds a file or files to the staging area. All changes to those files will be included in the next commit.</dd>
 
-<p>This GitHub "repo" (short for "repository") will be the master version of your project. You will make changes to this, and then deploy it to your web server.</p>
+            <dt><code>git commit</code></dt>
+            <dd>Commits all changes to all files currently in the staging area to the repository.</dd>
 
-<h3>Clone that Repository to your Local Machine</h3>
+            <dt><code>git push</code></dt>
+            <dd>Pushes all commits made since the last push to another repository, typically across the network (e.g., to GitHub)</dd>
 
-<p>To add files to this repository, <a target="_blank" href="http://git-scm.com/book/en/Git-Basics-Getting-a-Git-Repository#Cloning-an-Existing-Repository">clone that repository</a> to a directory on your local machine. This should create a new directory on your local machine, and make a complete copy of the repository (which only contains the README.md file at present) into that directory. This new directory is known as your local repository directory. Changes you make to this local repository can later be pushed back to the copy on GitHub.</p>
+            <dt><code>git pull</code></dt>
+            <dd>Pulls all commits made since the last pull from another repository, and attempts to merge those changes into your current files. If the pulled commits involve changes to the same lines that you've already changed locally, this process will produce a
+                <term>merge conflict</term> that you will have to resolve.</dd>
+        </dl>
 
-<p class="alert alert-warning">It's a good idea to keep all your projects organized under a particular directory inside your home directory that is separate from your other kinds of documents (e.g., word processing documents, spreadsheets, presentation slides, etc.). I typically create a directory called <code>code</code> in my home directory, and clone all my repositories into sub-directories under that. You can organize your local files however you want to, however.</p>
+        <p>Also check out this handy <a href="https://training.github.com/kit/downloads/github-git-cheat-sheet.pdf">Cheat Sheet</a>, as well as documentation on <a href="https://git-scm.com/docs">the complete set of git commands</a>.</p>
 
-<h3>Add and Change Files</h3>
+        <h3>Try out git!</h3>
+        <p>A great way to get a feel for these commands and how it works is to run through an example or tutorial. You should complete the <a href="https://try.github.io/levels/1/challenges/1">Try Git Interactive Tutorial</a> before moving on in the challenge to see the above commands in action!</p>
 
-<p>Now let's create some new files and add them to the repository.</p>
+        <h3>Wait, but what is GitHub then?</h3>
 
-<h4>The HTML Page</h4>
+        <p>Git was made to support completely decentralized development, where developers pull commits from each other's machines directly. But most professional teams take the approach of creating one central repository on a server that all developers push to and pull from. This repository contains the authoritative version the source code, and all deployments to a web server are done by cloning/pulling from this centralized repository.</p>
 
-<p>To make this a bit more interesting, I want you to create an HTML page that describes your favorite fictional character. This can be any character from a movie, television series, book, comic, or story. The page will include the character's name, a short description, a picture, and link to some web page that provides more information about the character or the story. Choose your character and then continue with the rest of the steps.</p>
+        <p>Teams can setup their own servers to host these centralized repositories, but many choose to use a server maintained by another service provider. The most popular of these in the open-source world is <a href="https://github.com/">GitHub</a>. In addition to hosting centralized repositories, GitHub also offers other team development features, such as issue tracking, wiki pages, and notifications. Public repositories on GitHub are free, but you have to pay for private ones.</p>
 
-<p>Create a sub-directory in your repository directory named <code>img</code>. Then find a picture of your character and download that image to a file in that newly-created <code>img</code> directory. If you've never done that before, right-click on the image and choose "Save Image As...".</p>
+        <p>In short: GitHub is a site that provides as a central authority (or clearing-house) for multiple people collaborating with git. Git is what you use to do version control; Github is one possible place where repositories can be stored.</p>
+    </section>
+<section class="separated">
+    <h2>Required Steps</h2>
 
-<p class="alert alert-warning">Spaces in file names are generally a bad idea when building web sites. The web was designed by people who love Unix, and although you can use spaces in Unix file names, doing so makes them much harder to refer to. If the file you just downloaded contains spaces in the file name, you should replace those spaces with a dash (<code>-</code>) or just remove them. Also, pay attention to the file extension as well as the file name (e.g., <code>.jpg</code> or <code>.png</code>). When referring to image files in your web pages, you must specify the entire file name, including its extension.</p>
+    <p>To complete this challenge, follow these steps. If you get stuck, consult the resources above, <a ng-if="tas.length > 0" ng-href="mailto:kshino@uw.edu"> ask your TA,</a> or <a href="mailto:mikefree@uw.edu">ask Mike</a>.</p>
 
-<p class="alert alert-warning">If the picture file is really big (larger than a megabyte), you might want to use a graphics tool to reduce it in size. If you are on a Mac, you can use the <a target="_blank" href="http://www.wikihow.com/Resize-Pictures-(for-Macs)">built-in Preview application</a> to do that. On Widows, you can use the <a target="_blank" href="http://windows.microsoft.com/en-us/windows7/resize-a-picture-using-paint">built-in Paint application</a>. We will use a CSS rule to constrain the width of your picture on the web page to a maximum of 600 pixels, so there's no need for the image to be any larger than that.</p>
+    <p class="alert alert-warning">Note that I won't typically tell you exactly how to do every step. Instead, I will provide links to resources that will help you figure out how to do that step. This will not only help you learn the skills, but also train you how to learn new skills in the future. Since web programming is always changing, you need to develop the ability to find out how to do new things by reading or watching resources on the Web.</p>
 
-<p>Next, create a file in the root of your local repository directory named <code>index.html</code>. Open this in your HTML editor and create the tags for a <a target="_blank" href="http://faculty.washington.edu/mikefree/info343/templates/basic" target="_blank">basic HTML page</a>. Put your character's name in the <code>&lt;title&gt;</code> element, and provide appropriate content for the author and description <code>&lt;meta&gt;</code> elements.</p>
+    <h3 id="step0">Step 0: Sign up for GitHub!</h3>
+    <p>The very first thing you need to do is create a free <a href="https://github.com/">GitHub</a> account, if you don't already have one. You should register a username that is identifiable as you (e.g., based on your name or your UW NetID). This will make it easier for us to collaborate and for the professor to figure out who submitted what, rather than needing to figure out who 'LeetCoder2015' is. This can be the start of a professional account you may use for the rest of your career!</p>
+    <p>
 
-<p>Also in the <code>&lt;head&gt;</code> section, add this element:</p>
+    <h3>Step 1: Installation and Setup</h3>
+    <p>You'll need to have the git command-line tools installed on your machine in order to complete this assignment. The git command line tools are already installed on the iSchool lab machines, but you can also <a href="http://git-scm.com/downloads">install them on your own computer</a> for free (Mac, Windows, or Linux). We will use git throughout this course, so if you plan to use your own machine at some point, you should just install them now. If you are afraid of the command line, you can also install the GitHub graphical tool (<a href="https://mac.github.com/">Mac</a> or <a href="https://windows.github.com/">Windows</a>), though you will still need to use the command line tools when deploying your web site to your web server. Note that we only offer support for the command-line though; that's how you should learn the system!</p>
 
-<pre>
-&lt;link rel=&quot;stylesheet&quot; href=&quot;css/main.css&quot;&gt;
-</pre>
+    <p class="alert alert-warning">If you've never used the command line before, you'll want to use Terminal on a Mac (see <a href="https://www.youtube.com/watch?v=yIY3iPDVUBg">this video</a>) or Git Bash on Windows (included when you install git; see <a href="https://www.youtube.com/watch?v=bqV-eszlRhY">this video</a>). For more basics of using the command-line, watch <a href="https://www.youtube.com/watch?v=sqYUYHn-HKg&list=PLCAF7D691FFA25555">these short video tutorials</a>---the first 3 will give you most of what you need.</p>
 
-<p>In the <code>&lt;body&gt;</code> section, add the following:</p> 
+    <h4>Activate Web Publishing</h4>
+    <p>If you haven't already done so, you also need to <a href="http://www.washington.edu/itconnect/connect/web-publishing/shared-hosting/activating-shared-web-hosting/">activate the Dante/Homer <strong>and</strong> Web Publishing services for your UW account</a>. This will allow you to put your web pages to the Internet!</p>
 
-<ul>
-    <li>a <a target="_blank" href="http://www.w3schools.com/tags/tag_hn.asp">top-level heading</a> with the character's name</li>
-    <li>the <a target="_blank" href="http://www.w3schools.com/tags/tag_img.asp">image</a> of your character that you downloaded to the <code>img</code> directory (note that the path to your image file needs to include the <code>img/</code> sub-directory as well as the full name of the image file).</li>
-    <li>a <a target="_blank" href="http://www.w3schools.com/tags/tag_p.asp">paragraph</a> with a short description of your character</li>
-    <li>a paragraph with the name of the story in which this character appears, where the story name is a <a target="_blank" href="http://www.w3schools.com/tags/tag_a.asp">hyperlink</a> pointing to an existing web page that provides more detail about that story</li>
-</ul>
+    <h4>Configure Git User</h4>
+    <p>If you are on a lab machine, or if you just installed git and haven't configured it yet, you will need to tell git who you are so that you can access the private course repositories. This isn't strictly necessary, but will save you effort typing in your password over and over again. If you've already done these commands, just move on to the next section. Enter these commands in your terminal/command window:</p>
 
-<h4>The Stylesheet</h4>
+    <pre><code class="language-bash">$ git config --global user.name "<span class="replace-token">your-full-name</span>"
+$ git config --global user.email <span class="replace-token">your-email-address</span>
+</code></pre>
 
-<p>Create another sub-directory in your local repository directory named <code>css</code>. Within that new sub-directory, create a new file named <code>main.css</code>. Open that file in your code editor, and add the following style rules:</p>
+    <p class="alert alert-info">Note that the email address should be the same one associated with your GitHub account!</p>
 
-<pre>
-body {
-    font-family: Helvetica, sans-serif;
-    font-size: 18px;
-}
-img {
-    max-width: 600px;
-}
-</pre>
+    <p>If you're doing this on a lab machine, don't worry&mdash;these settings will be erased when you log out and reboot the lab machine.</p>
 
-<p class="alert alert-warning">Don't worry if you don't understand these CSS rules yet. I will explain them in class, and you will get a chance to practice and demonstrate your CSS skills over the next two challenges. The point of this challenge is to learn git, and practice your basic HTML skills.</p>
+    <h3>Step 3: Fork and Clone my Repository</h3>
+    <ol class="steps">
+        <li>Go to my <a target="_blank" href="https://github.com/mkfreeman/git-started">git-started</a> repository on GitHub</li>
+        <li>Click the "Fork" button located to the right of the repository name and follow any instructions you might receive<br/> 
+            <img class="img-responsive screenshot" src="img/challenges/git/fork.png" alt="fork button on GitHub">
+        </li>
+        <li>In <strong>your forked repository on GitHub</strong> (not my original one), click the copy button next to the HTTPS clone URL to copy that URL to your clipboard.<br>
+            <img class="img-responsive screenshot" src="img/challenges/git/copy-clone-url.png" alt="copy clone url screenshot">
+        </li>
+        <li>
+            <p>If you're on a Mac, open the Terminal application; if you're on Windows, open the Git Bash command window. This will probably start in your home directory. It's good practice to keep all your code under a subdirectory, so if you haven't done so already, execute these commands to create a new subdirectory named <code>code</code> and change into it</p>
 
-<h4>The Readme.md File</h4>
+            <pre><code class="language-bash">$ mkdir code
+$ cd code</code></pre>
 
-<p>Finally, update the <code>README.md</code> file. Open that file in your text editor. It should contain the basic description you provided when you created the repository on GitHub. Add a new line to that file with a warm, personal message to your TA. Something polite. No insults or swearing, please.  If you want to get fancy, check out how to use <a href="https://help.github.com/articles/markdown-basics/" target="_blank">Github Markdown</a> to dress up your <code>README.md</code> file. </p>
+            <p class="alert alert-info">Feel free to organize your files differently if you want to. We don't care how you organize your local files, but it's good practice to keep your code separate from your other documents. Putting all this in your "info343" folder is a great idea</p>
 
-<p class="alert alert-warning">Also, please add the URL of your where your student webserver is hosted to your <code>README.md</code> file (i.e., <code>http://students.washington.edu/<span class="token">your-net-id</span>/info343/files-challenge</code>).</p>
+            <p>Now clone your repository to your machine using this command:</p>
 
-<h3>Add and Commit Changes</h3>
+            <pre><code class="language-bash">$ git clone <span class="replace-token">paste-your-url-here</span></code></pre>
 
-<p>You've now added a few files and changed one existing file. To see all the files that have changed, open a terminal window, change to your project directory, and enter the following command:</p>
+            <p>This will create a new subdirectory named <code>challenges</code>. Change into this directory using this command:</p>
 
-<pre>git status</pre>
+            <pre><code class="language-bash">$ cd challenges</code></pre>
 
-<p>At this point, you should <a target="_blank" href="http://git-scm.com/book/en/Git-Basics-Recording-Changes-to-the-Repository">add the new files and commit all of your changes</a> to your local repository. Each commit records a version of the files that you can get back to if something goes wrong. It also allows you to see exactly what was changed during each commit, which can be helpful when tracking down how an error was introduced.</p>
+            <p>You should then be able to see the starter files. You can list the files using this command:</p>
 
-<h3>Push Changes to GitHub</h3>
+            <pre><code class="language-bash">$ ls</code></pre>
 
-<p>The previous step recorded a set of changes to your local repository on your local machine, but in order for others to see those changes, and to ensure that they are backed up, you now need to <a target="_blank" href="http://git-scm.com/book/en/Git-Basics-Working-with-Remotes#Pushing-to-Your-Remotes">push them up to GitHub</a>.</p>
+            <p>And you should be able to see the status of the repository using this command:</p>
 
-<p>After pushing these changes, you should now be able to go to <a target="_blank" href="https://github.com/">your repository on GitHub</a> and see the new files, as well as the change you made to the <code>README.md</code> file.</p>
+            <pre><code class="language-bash">$ git status</code></pre>
+        </li>
+    </ol>
 
-<h3>Make a Mistake and Revert Changes</h3>
+  
+    <h3>Add and Change Files</h3>
 
-<p>Eventually, you will end up making a bunch of changes to your files that you realize were a bad idea. You will have saved the files already so that you can see them in the web browser, so you will want a simple way revert all your changes, and get back to the way the files were after your last commit (or some previous commit). Version control systems like git make this very easy to do. With every commit, git saves a snapshot of your files so that you can always get back to the way they were at that time.</p>
+    <p>Now let's create some new files and add them to the repository.</p>
 
-<p>To boost your confidence, let's make some horrible changes to your existing files, save them, and revert those changes using git.</p>
+    <h4>The HTML Page</h4>
 
-<p>Open the <code>index.html</code> and <code>css/main.css</code> files in your text editor and make some bad changes to them: mess up some tags, insert some swear words, or just make changes that you will want to revert. Save the files and view the HTML file in your browser (if you messed up tags, it may not load at all).</p>
+    <p>To make this a bit more interesting, I want you to create an HTML page that describes your favorite fictional character. This can be any character from a movie, television series, book, comic, or story. The page will include the character's name, a short description, a picture, and link to some web page that provides more information about the character or the story. Choose your character and then continue with the rest of the steps.</p>
 
-<p>Now don't panic. Git makes it easy to undo all these changes to all your files. Open a terminal window, change to your project directory, and enter the following command (make sure you type the dot at the end):</p>
+    <p>Create a sub-directory in your repository directory named <code>img</code>. Then find a picture of your character and download that image to a file in that newly-created <code>img</code> directory. If you've never done that before, right-click on the image and choose "Save Image As...".</p>
 
-<pre>git checkout .</pre>
+    <p class="alert alert-warning">Spaces in file names are generally a bad idea when building web sites. The web was designed by people who love Unix, and although you can use spaces in Unix file names, doing so makes them much harder to refer to. If the file you just downloaded contains spaces in the file name, you should replace those spaces with a dash (<code>-</code>) or just remove them. Also, pay attention to the file extension as well as the file name (e.g., <code>.jpg</code> or <code>.png</code>). When referring to image files in your web pages, you must specify the entire file name, including its extension.</p>
 
-<p>Go back to your text editor and verify that the changes have been reverted. Most text editors will automatically reload a file changed by another process, but you might need to activate the editor window before it will do that. If your text editor doesn't auto-reload, close the file and reload it.</p>
+    <p class="alert alert-warning">If the picture file is really big (larger than a megabyte), you might want to use a graphics tool to reduce it in size. If you are on a Mac, you can use the <a target="_blank" href="http://www.wikihow.com/Resize-Pictures-(for-Macs)">built-in Preview application</a> to do that. On Widows, you can use the <a target="_blank" href="http://windows.microsoft.com/en-us/windows7/resize-a-picture-using-paint">built-in Paint application</a>. We will use a CSS rule to constrain the width of your picture on the web page to a maximum of 600 pixels, so there's no need for the image to be any larger than that.</p>
 
-<h3>Deploy Site to Your Student Web Server</h3>
+    <p>Next, create a file in the root of your local repository directory named <code>index.html</code>. Open this in your HTML editor and create the tags for a <a target="_blank" href="http://faculty.washington.edu/mikefree/info343/templates/basic" target="_blank">basic HTML page</a>. Put your character's name in the <code>&lt;title&gt;</code> element, and provide appropriate content for the author and description <code>&lt;meta&gt;</code> elements.</p>
 
-<p>"Deploying" a site involves copying the most recent versions of all files to the web server. The easiest way to do that is to use git. Deploying is done by cloning (or later pulling changes from) your repository on GitHub.</p>
+    <p>Also in the <code>&lt;head&gt;</code> section, add this element:</p>
 
-<p>The UW Student Web Servers have git installed on them, but in order to run those commands, we need to connect to the server via the terminal. To do that, we will use the very common command-line utility <code>ssh</code>, which stands for "secure shell."</p>
+    <pre>
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;css/main.css&quot;&gt;
+    </pre>
 
-<p class="alert alert-warning">Note, <code>ssh</code> is a command line utility for GNU/Linux and Apple OS X, but not Windows.  If Windows is your operating system, you should follow the UW IT <a href="http://www.washington.edu/itconnect/connect/web-publishing/shared-hosting/ssh/" target="_blank">instructions</a> that suggest using the program <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/" target="_blank">PuTTy </a>to connect to a server's command line.</p>
+    <p>In the <code>&lt;body&gt;</code> section, add the following:</p> 
 
-<p>In the terminal type the following command, replacing <span class="token">your-net-id</span> with your UW NetID, and hit <code>Enter</code>. It will prompt you for a password, which is your UW NetId password.</p>
+    <ul>
+        <li>a <a target="_blank" href="http://www.w3schools.com/tags/tag_hn.asp">top-level heading</a> with the character's name</li>
+        <li>the <a target="_blank" href="http://www.w3schools.com/tags/tag_img.asp">image</a> of your character that you downloaded to the <code>img</code> directory (note that the path to your image file needs to include the <code>img/</code> sub-directory as well as the full name of the image file).</li>
+        <li>a <a target="_blank" href="http://www.w3schools.com/tags/tag_p.asp">paragraph</a> with a short description of your character</li>
+        <li>a paragraph with the name of the story in which this character appears, where the story name is a <a target="_blank" href="http://www.w3schools.com/tags/tag_a.asp">hyperlink</a> pointing to an existing web page that provides more detail about that story</li>
+    </ul>
 
-<pre>ssh <span class="token">your-net-id</span>@vergil.u.washington.edu</pre>
+    <h4>The Stylesheet</h4>
 
-<p>Next type the command <code>ls</code> and hit enter. This lists the directories and files in the current directory (if you are used to Windows, this is like the <code>dir</code> command). If you see a directory named <code>student_html</code> you want to use that one. If you don't have a <code>student_html</code> directory, you should use the <code>public_html</code> directory instead.</p>
+    <p>Create another sub-directory in your local repository directory named <code>css</code>. Within that new sub-directory, create a new file named <code>main.css</code>. Open that file in your code editor, and add the following style rules:</p>
 
-<p class="alert alert-warning">If you have both a <code>public_html</code> and a <code>student_html</code> directory, use the <code>student_html</code> one. The UW creates these two directories if you have multiple affiliations with the university (e.g., you are both a student and an employee or staff worker). The <code>student_html</code> directory is where the web server will look when you use the <code>http://students.washington.edu/<span class="token">your-net-id</span></code> URL.</p>
+    <pre>
+    body {
+        font-family: Helvetica, sans-serif;
+        font-size: 18px;
+    }
+    img {
+        max-width: 600px;
+    }
+    </pre>
 
-<p>Change to the appropriate directory using the command:</p>
+    <p class="alert alert-warning">Don't worry if you don't understand these CSS rules yet. I will explain them in class, and you will get a chance to practice and demonstrate your CSS skills over the next two challenges. The point of this challenge is to learn git, and practice your basic HTML skills.</p>
 
-<pre>cd <span class="token">student_html or public_html</span></pre>
+    <h4>The Readme.md File</h4>
 
-<p>List the files again (remember the command?) and if you don't already have a directory named <code>info343</code>, create one now using the command:</p>
+    <p>Finally, update the <code>README.md</code> file. Open that file in your text editor. It should contain the basic description you provided when you created the repository on GitHub. Add a new line to that file with a warm, personal message to your TA. Something polite. No insults or swearing, please.  If you want to get fancy, check out how to use <a href="https://help.github.com/articles/markdown-basics/" target="_blank">Github Markdown</a> to dress up your <code>README.md</code> file. </p>
 
-<pre>mkdir info343</pre>
+    <p class="alert alert-warning">Also, please add the URL of your where your student webserver is hosted to your <code>README.md</code> file (i.e., <code>http://students.washington.edu/<span class="token">your-net-id</span>/info343/files-challenge</code>).</p>
 
-<p>Change into the info343 directory using the same command as before. Now <a target="_blank" href="http://git-scm.com/book/en/Git-Basics-Getting-a-Git-Repository#Cloning-an-Existing-Repository">clone your GitHub repository</a> to the web server, just like you cloned it to your local machine.</p>
+    <h3>Add and Commit Changes</h3>
 
-<p>If you did everything correctly, you should now be able to open the following URL in your web browser. Remember to replace <span class="token">your-net-id</span> with your UW NetID:</p>
+    <p>You've now added a few files and changed one existing file. To see all the files that have changed, open a terminal window, change to your project directory, and enter the following command:</p>
 
-<pre>http://students.washington.edu/<span class="token">your-net-id</span>/info343/files-challenge</pre>
+    <pre>git status</pre>
 
-<p class="alert alert-warning">If your browser can't find the web site, verify that you've put the files in the correct place, and verify that you didn't mistype your UW NetID. Also, if you have multiple affiliations, try using <code>staff.washington.edu</code> instead of <code>students.washington.edu</code>. Sometimes the web servers get configured incorrectly causing the <code>staff.washington.edu</code> domain to point to the <code>student_html</code> directory.</p>
+    <p>At this point, you should <a target="_blank" href="http://git-scm.com/book/en/Git-Basics-Recording-Changes-to-the-Repository">add the new files and commit all of your changes</a> to your local repository. Each commit records a version of the files that you can get back to if something goes wrong. It also allows you to see exactly what was changed during each commit, which can be helpful when tracking down how an error was introduced.</p>
 
-<p>Once you've verified that everything is working, you can submit both your deployed website URL and your GitHub repository URL via the form on this page.</p>
+    <h3>Push Changes to GitHub</h3>
 
-<h2>Keep Practicing</h2>
+    <p>The previous step recorded a set of changes to your local repository on your local machine, but in order for others to see those changes, and to ensure that they are backed up, you now need to <a target="_blank" href="http://git-scm.com/book/en/Git-Basics-Working-with-Remotes#Pushing-to-Your-Remotes">push them up to GitHub</a>.</p>
 
-<p>Now that you've gone through the process once, try making some more changes to the files in your local repository, commit them, pushing them to GitHub, and then pulling them to your web server. Because you've already cloned the repository to your web server, updating the server to the most recent versions of all the files can be done with one simple command, executed from within the repository directory on the server:</p>
+    <p>After pushing these changes, you should now be able to go to <a target="_blank" href="https://github.com/">your repository on GitHub</a> and see the new files, as well as the change you made to the <code>README.md</code> file.</p>
 
-<pre>git pull</pre>
+    <h3>Make a Mistake and Revert Changes</h3>
 
-<p>The <code>git clone</code> command created the repository directory on the server and recorded where it cloned from. So when you execute <code>git pull</code> it returns to the "origin" and gathers any changes that have been committed since the last time it pulled. Any changes made to the repository on GitHub will be copied down, merged into the files that are on the web server, and your web site will be up-to-date!</p>
+    <p>Eventually, you will end up making a bunch of changes to your files that you realize were a bad idea. You will have saved the files already so that you can see them in the web browser, so you will want a simple way revert all your changes, and get back to the way the files were after your last commit (or some previous commit). Version control systems like git make this very easy to do. With every commit, git saves a snapshot of your files so that you can always get back to the way they were at that time.</p>
+
+    <p>To boost your confidence, let's make some horrible changes to your existing files, save them, and revert those changes using git.</p>
+
+    <p>Open the <code>index.html</code> and <code>css/main.css</code> files in your text editor and make some bad changes to them: mess up some tags, insert some swear words, or just make changes that you will want to revert. Save the files and view the HTML file in your browser (if you messed up tags, it may not load at all).</p>
+
+    <p>Now don't panic. Git makes it easy to undo all these changes to all your files. Open a terminal window, change to your project directory, and enter the following command (make sure you type the dot at the end):</p>
+
+    <pre>git checkout .</pre>
+
+    <p>Go back to your text editor and verify that the changes have been reverted. Most text editors will automatically reload a file changed by another process, but you might need to activate the editor window before it will do that. If your text editor doesn't auto-reload, close the file and reload it.</p>
+
+    <h3>Deploy Site to Your Student Web Server</h3>
+
+    <p>"Deploying" a site involves copying the most recent versions of all files to the web server. The easiest way to do that is to use git. Deploying is done by cloning (or later pulling changes from) your repository on GitHub.</p>
+
+    <p>The UW Student Web Servers have git installed on them, but in order to run those commands, we need to connect to the server via the terminal. To do that, we will use the very common command-line utility <code>ssh</code>, which stands for "secure shell."</p>
+
+    <p class="alert alert-warning">Note, <code>ssh</code> is a command line utility for GNU/Linux and Apple OS X, but not Windows.  If Windows is your operating system, you should follow the UW IT <a href="http://www.washington.edu/itconnect/connect/web-publishing/shared-hosting/ssh/" target="_blank">instructions</a> that suggest using the program <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/" target="_blank">PuTTy </a>to connect to a server's command line.</p>
+
+    <p>In the terminal type the following command, replacing <span class="token">your-net-id</span> with your UW NetID, and hit <code>Enter</code>. It will prompt you for a password, which is your UW NetId password.</p>
+
+    <pre>ssh <span class="token">your-net-id</span>@vergil.u.washington.edu</pre>
+
+    <p>Next type the command <code>ls</code> and hit enter. This lists the directories and files in the current directory (if you are used to Windows, this is like the <code>dir</code> command). If you see a directory named <code>student_html</code> you want to use that one. If you don't have a <code>student_html</code> directory, you should use the <code>public_html</code> directory instead.</p>
+
+    <p class="alert alert-warning">If you have both a <code>public_html</code> and a <code>student_html</code> directory, use the <code>student_html</code> one. The UW creates these two directories if you have multiple affiliations with the university (e.g., you are both a student and an employee or staff worker). The <code>student_html</code> directory is where the web server will look when you use the <code>http://students.washington.edu/<span class="token">your-net-id</span></code> URL.</p>
+
+    <p>Change to the appropriate directory using the command:</p>
+
+    <pre>cd <span class="token">student_html or public_html</span></pre>
+
+    <p>List the files again (remember the command?) and if you don't already have a directory named <code>info343</code>, create one now using the command:</p>
+
+    <pre>mkdir info343</pre>
+
+    <p>Change into the info343 directory using the same command as before. Now <a target="_blank" href="http://git-scm.com/book/en/Git-Basics-Getting-a-Git-Repository#Cloning-an-Existing-Repository">clone your GitHub repository</a> to the web server, just like you cloned it to your local machine.</p>
+
+    <p>If you did everything correctly, you should now be able to open the following URL in your web browser. Remember to replace <span class="token">your-net-id</span> with your UW NetID:</p>
+
+    <pre>http://students.washington.edu/<span class="token">your-net-id</span>/info343/files-challenge</pre>
+
+    <p class="alert alert-warning">If your browser can't find the web site, verify that you've put the files in the correct place, and verify that you didn't mistype your UW NetID. Also, if you have multiple affiliations, try using <code>staff.washington.edu</code> instead of <code>students.washington.edu</code>. Sometimes the web servers get configured incorrectly causing the <code>staff.washington.edu</code> domain to point to the <code>student_html</code> directory.</p>
+
+    <p>Once you've verified that everything is working, you can submit both your deployed website URL and your GitHub repository URL via the form on this page.</p>
+
+    <h2>Keep Practicing</h2>
+
+    <p>Now that you've gone through the process once, try making some more changes to the files in your local repository, commit them, pushing them to GitHub, and then pulling them to your web server. Because you've already cloned the repository to your web server, updating the server to the most recent versions of all the files can be done with one simple command, executed from within the repository directory on the server:</p>
+
+    <pre>git pull</pre>
+
+    <p>The <code>git clone</code> command created the repository directory on the server and recorded where it cloned from. So when you execute <code>git pull</code> it returns to the "origin" and gathers any changes that have been committed since the last time it pulled. Any changes made to the repository on GitHub will be copied down, merged into the files that are on the web server, and your web site will be up-to-date!</p>
+</section>
 
