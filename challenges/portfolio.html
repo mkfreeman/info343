@@ -1,51 +1,59 @@
-<h2>Summary</h2>
+<section class="separated">
+    <h2>Summary</h2>
 
-<p>For the first several weeks of class, you've been led through interactive lectures about how to use different JavaScript libraries and packages -- now it's your turn to do the teaching.  To truly master a topic, you must be able to both implement it, and explain it to others.  In this challenge, you'll identify a new skill of your choice, and give a 25 minute presentation on it, including an interactive exercise.</p>
+    <p>Creating an online presence is a great way to connect to cool organizations, and showcase the type of work you have done (and are interested in doing!).  This challenge presents you with an opportunity to showcase the work you've done thus far in class in a professional and modern portfolio.</p>
 
-<p>The beauty of the open-source community is that there are millions of people building tools that you can use to solve your problems.  In your teaching presentation, you should identify a robust, well documented, and useful set of code to share with your peers. Here are some ideas:
+    <h2>Objectives</h2>
+
+    <p>By completing this challenge, you will practice and demonstrate mastery of the following skills:</p>
+
     <ul>
-        <li>Introduce a new JavaScript library (<a href="http://danieltao.com/lazy.js/">Lazy.js</a>)
-        <li>Teach a new angular module (<a href="https://github.com/angular-translate/angular-translate" target="_blank">translation</a>, <a href="https://github.com/wealthbar/angular-d3" target="_blank">D3 in Angular</a>)</li>
-        <li>Introduce the class to a new framework (<a href="http://facebook.github.io/react/" target="_blank">react.js</a>, <a href="http://backbonejs.org/" target="_blank">backbone.js</a>, <a href="http://knockoutjs.com/" target="_blank">knockout.js</a>, etc.)</li>
-        <li>Introcude a new skill such as server-side scripting with <a href="https://nodejs.org/en/" target="_blank">Node.js</a></li>
+        <li>Building a web-page with multi-page architecture</li>
+        <li>Designing a data-driven web-page with Angular.js</li>
+        <li>Build a mobile-friendly web-page using modern web-standards (i.e., bootstrap).</li>
+        <li>Practice your design skills to impress future collaborators.</li>
     </ul>
 
-Note, you <strong>should not</strong> present a library that solves a <a href="http://bigspaceship.github.io/shine.js/" target="_blank">single problem</a>. Instead, find a tool that people can use in a variety of contexts.   Twenty-five minutes goes fast, so you'll have to be concise.  
-</p>
+    <h2>Resources</h2>
+
+    <p>This challenge is really about going out there and finding a library that <strong>you</strong> find interesting/fun/useful.  Try and find a solution that someone else has made to a problem you've encountered, or build a creative application using the tools that you find!</p>
+    <h3>Resources on the Web</h3>
 
 
-<h2>Objectives</h2>
+    <ul class="resources">
+        <li class="resource slides"><a target="_blank" href="lectures/angular">Angulr I Slides</a></li>
+        <li class="resource slides"><a target="_blank" href="lectures/angular2">Angular II Slides</a></li>
+        <li class="resource slides"><a target="_blank" href="lectures/angular-route">Multi-page Architecture Slides</a></li>
+    </ul>
 
-<p>By completing this challenge, you will practice and demonstrate mastery of the following skills:</p>
+</section>
+<section>
+    <h2>Required Features</h2>
 
-<ul>
-    <li>Identify and teach yourself a new JavaScript library</li>
-    <li>Develop teaching materials for explaining a topic</li>
-    <li>Evaluate the limitations of a library</li>
-    <li>Code up an exercise that both highlights the functionality of a library, and teaches it</li>
-</ul>
+    <p>This is an opportunity for you to express your creativity and showcase the great work that you've done thus far in the course.  If you'd like to focus on another interest area (i.e., showcasing your photography), make sure you meet the same requirements.</p>
 
-<h2>Resources</h2>
+    <h3>Data-driven content</h3>
+    <p>At this point in the course, you should understand the power of data-driven content.  Rather than write out each element in HTMl, your content should be derived from data, and presented using angular directives such as <code>ng-repeat</code>.  You have a few different options for storing and accessing your data</p>
 
-<p>This challenge is really about going out there and finding a library that <strong>you</strong> find interesting/fun/useful.  Try and find a solution that someone else has made to a problem you've encountered, or build a creative application using the tools that you find!</p>
-<h3>Resources on the Web</h3>
+    <ul>
+        <li>Store your data (i.e projects, links, descriptions, etc.) in a .csv file. If you do this, you'll either need to:
+            <ul>
+                <li>Parse the data once you've loaded it, which is far easier if you use a library like <a href="http://papaparse.com/" target="_blank">PapaParse</a></li>
+                <li>Write your .csv file, then manually turn it into a JSON object using a service like <a href="https://shancarter.github.io/mr-data-converter/" target="_blank">Mr. Data Converter</a></li>
+            </ul>
+            <li>Use a service like <a href="http://parse.com" target="_blank">Parse.com</a>.  How you get the data there is a question you'll have to solve....</li>
+        </li>
+    </ul>
+    
+    <p>This loaded data should drive the content of the page.  For example, if you are showcasing multiple projects you've worked on (including images, a desription, etc.) your data should maintain those images/descriptions/links, and you should use angular to handle the display of that data.  You could even go as far as storing other contact (i.e., contact info, land page description) in data as well.</p> 
+    
+    <h3>Multi-page Architecture</h3>
 
+    <p>Building pages with multi-page architecture is a common web-standard.  Rather than figuring out page-redirects with jQuery, it is much more efficient to handle these component with the <a href="https://docs.angularjs.org/api/ngRoute/service/$route" target="_blank">Angular Route</a> service.  This allows users to create and load html fragments into their page content without reloading the page.  In order to do this, you'll need to perform the following tasks:</p>
 
-<ul class="resources">
-    <li class="resource reading"><a target="_blank" href="http://jsbin.com">JS Bin</a>: for coding interactive tutorials</li>
-    <li class="resource slides"><a target="_blank" href="http://slides.com">Slides.com</a>: for building interactive presentations</li>
-</ul>
-
-<h2>Required Features</h2>
-
-<p>Depending on the specifics of the library you choose, your presentation may take on different formats.  Make sure to pick a moderately sophisticated library or package that is actually worth learning for you and others.  Regardless of the platform you use, you must cover the following information</p>
-<ul>
-    <li>What does the package do (i.e., why would you use it)?</li>
-    <li>Explain the syntax of the package (i.e., how does it work)?</li>
-    <li>What challenges did you encounter in using the package, and/or why would you <strong>not</strong> use it?</li>
-</ul>
-<p>In addition to communicating the information above to your fellow classmates, you must include an interactive exercise that allows students to explore the implementation of the package.  Feel free to use the approach in class (<a href="http://jsbin.com" target="_blank">jsBin</a>), or another method, such as coding together, or providing a coding challenge.  This exercise should demonstrate how to use the package, and in doing so, highlight its functionality</p>
-
-<p>You may choose to divide your time (25 minutes, total) as you see fit.  If you believe more explanation is needed, spend more time on describing how the package works.  If you would rather create an involved and well documented exercise for your classmates, allocate more time to the interactive component of your assignment.</p>
-
-<p>All group members must participate in presenting the material to the classroom, as well as in the preparation of the materials.  If there are any concerns with the distribution of work, try to work it out with your fellow group members, or involve Mike or you TA if necessary.</p>
+    <ul>
+        <li>Create a navigation element that persists across pages (I suggest you use bootstrap <code>nav</code> elements).
+        <li>Create <strong>at least</strong> 3 different pages that users can navigate across.  These could include a home page, projects page, interests page, contact page, etc.</li>
+    </ul>
+    
+</section>
