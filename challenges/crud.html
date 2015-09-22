@@ -37,12 +37,24 @@
 
 <p>The application you build for this challenge will let users write reviews about something, similar to Yelp or Amazon's product reviews. To keep this focused, you will build a reviews page for just one thing, but you get to decide what that thing is. It could be anything people might want to review: a book, movie, music track, video game, picture, clothing, restaurant, etc. It can be real or fictitious. Be creative!</p>
 
-<p>You application must meet the following requirements:</p>
 
-<ul>
-    <li>Your main review page must contain information about the thing that is being reviewed. This content should be relatively brief and focused, as the main point of this challenge is to enable the reviewing functionality.</li>
+<p>You have total control over the visual design and user experience, but here is an example of how this sort of page might look. Note that this example implements the advanced extra-credit requirements described below.</p>
 
-    <li>The user must be able to write a new review. A review must contain at least these properties:
+<img class="img-responsive screenshot bordered" src="img/challenges/crud/reviews.png" alt="reviews screenshot"></img>
+
+<p class="alert alert-warning">Remember to make your page look and function well both on small mobile devices and larger desktop computers.</p>
+
+<h3>Product information</h3>
+<p>Your main review page must contain information about the thing that is being reviewed. This content should be relatively brief and focused, as the main point of this challenge is to enable the reviewing functionality.  You may want to include a product title, a short paragraph of information, an image, etc.</p>
+
+<p>In addition to displaying the individual reviews (see below), you must also display the average rating from all reviews. Again, look at how Yelp and Amazon do it, but you'll typically want to put this featured prominently alongside the product information.
+
+    <p class="alert alert-warning">If you get a <code>NaN</code> when calculating the average, you probably forgot to convert the rating to a integer before saving the first review. Parse creates new columns the first time it sees them, and uses the data type of the first value it sees as the data type for the column. So if you saved the first review with a string rating, and then later fixed your code to covert it to a number, Parse will still be storing and returning the rating value as a string. To fix this, drop the entire Rating class using the Parse Data Browser. Or convert the ratings to integers as you calculate the average.</p>
+
+</p>
+
+<h3>Creating reviews</h3>
+ <p>The user must be able to write a new review. A review must contain at least these properties:
         <ul>
              <li>a <strong>numeric</strong> <code>rating</code> (scale of 1-5)</li>
              <li>a short <code>title</code></li>
@@ -50,63 +62,33 @@
          </ul>
 
          You will add a few properties to store the helpful/unhelpful votes later.
-    </li>
 
-    <li>New reviews must be saved to your Parse application database. Define a new Parse object class, create an instance, set the properties, and <a href="https://parse.com/docs/js/guide#objects-saving-objects">save it</a>.</li>
+    <p>New reviews must be saved to your Parse application database. Define a new Parse object class, create an instance, set the properties, and <a href="https://parse.com/docs/js/guide#objects-saving-objects">save it</a>.</p>
 
-    <li>For the rating, you should use one of the many jQuery rating plug-in libraries, which allow the user to choose one or more stars by clicking/tapping on them. The most popular one seems to be <a href="http://wbotelhos.com/raty">jQuery Raty</a>, which uses raster icons for the stars. Another option is <a href="https://github.com/Jacob87/raty-fa">jQuery Raty FA</a>, which is a fork of the former library that uses the scalable vector stars from <a href="https://fortawesome.github.io/Font-Awesome/">Font Awesome</a>. Vector-based icons can scale to any size or resolution, so they tend to look better on high-definition screens.
+<h3>Assigning Ratings</h3>
 
-        <p class="alert alert-warning">Note that the score returned from these plug-ins is often a string value and not a number. You should <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt">convert this to an integer</a> before saving it to Parse. This will enable you to calculate the average rating more easily.</p>
+<p>For the rating, you should use one of the many jQuery rating plug-in libraries, which allow the user to choose one or more stars by clicking/tapping on them. The most popular one seems to be <a href="http://wbotelhos.com/raty">jQuery Raty</a>, which uses raster icons for the stars. Another option is <a href="https://github.com/Jacob87/raty-fa">jQuery Raty FA</a>, which is a fork of the former library that uses the scalable vector stars from <a href="https://fortawesome.github.io/Font-Awesome/">Font Awesome</a>. Vector-based icons can scale to any size or resolution, so they tend to look better on high-definition screens.
 
-    </li>
+<p class="alert alert-warning">Note that the score returned from these plug-ins is often a string value and not a number. You should <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt">convert this to an integer</a> before saving it to Parse. This will enable you to calculate the average rating more easily.</p>
 
-    <li>You must also fetch all existing reviews and display them on the page. Use a <a href="https://parse.com/docs/js/guide#queries">Parse query</a> to fetch the reviews, and use the jQuery library to <a href="http://jqfundamentals.com/chapter/traversing-manipulating">create and populate new HTML elements</a> to display the returned data. Remember that the Parse library is making asynchronous requests to the server, so you must wait for the query to return before trying to render the data.</li>
+       
+<h3>Displaying Reviews</h3>
 
-    <li>Because the review title and body are entered by the user and integrated into the page by your code, you must protect against <a href="https://en.wikipedia.org/wiki/Code_injection#HTML_script_injection">script injection attacks</a>. The easiest way to do this is to use jQuery's <code><a href="https://api.jquery.com/text/">text()</a></code> method instead of it's <code>html()</code> method when populating the review title and body elements. The <code>text()</code> method escapes the HTML, so any embedded HTML will just show up literally on the page, and will not be interpreted as HTML by the browser.</li>
+<p>You must also fetch all existing reviews and display them on the page. Use a <a href="https://parse.com/docs/js/guide#queries">Parse query</a> to fetch the reviews, and use the jQuery library to <a href="http://jqfundamentals.com/chapter/traversing-manipulating">create and populate new HTML elements</a> to display the returned data. Remember that the Parse library is making asynchronous requests to the server, so you must wait for the query to return before trying to render the data.</p>
 
-    <li>Users must be able to indicate whether a particular review was helpful or unhelpful (e.g., up/down vote icons or yes/no buttons), and these vote totals must be persisted with the review object on Parse. Note that multiple users may be voting on the same review at the same time, so you should use Parse's <a href="https://parse.com/docs/js/guide#objects-counters">atomic increment</a> function to safely increment the values. To keep things simple, you may let users vote on their own reviews and vote multiple times. Check out the <a ng-href="challenges/crud/#extra-credit-auth" href="">advanced extra-credit requirements</a> if you want to enable authentication and authorization rules that prohibit this.</li>
+<p>Because the review title and body are entered by the user and integrated into the page by your code, you must protect against <a href="https://en.wikipedia.org/wiki/Code_injection#HTML_script_injection">script injection attacks</a>. The easiest way to do this is to use jQuery's <code><a href="https://api.jquery.com/text/">text()</a></code> method instead of it's <code>html()</code> method when populating the review title and body elements. The <code>text()</code> method escapes the HTML, so any embedded HTML will just show up literally on the page, and will not be interpreted as HTML by the browser.</p>
 
-    <li>You must also display the vote totals with the review. How you display these vote totals is up to you, but look at how Amazon, Yelp, and other review sites do it. A typical approach is to build a string that says something like "2 out of 5 people found this review helpful," but you may opt to show a percentage (texturally or graphically) instead.</li>
+<p>You should also display summary informaiton of the up/down votes received by each review (see below).  A common way to do this is textually, stating "2 out of 3 people found this review helpful" (i.e., 2 up-votes, 1 down-vote)</p>
 
-    <li>Users must also be able to delete a particular review. To keep things simple, you may allow users to delete any review, even those created by others. Check out the advanced extra-credit requirements if you want to enable authentication and authorization rules that prohibit this.</li>
+<h3>Interacting with reviews</h3>
 
-    <li>In addition to the individual reviews, you must also display somewhere on the page the average rating from all reviews. Again, look at how Yelp and Amazon do it, but you'll typically want to put this next to the title of the thing you are reviewing.
+<p>Users must be able to indicate whether a particular review was helpful or unhelpful (e.g., up/down vote icons or yes/no buttons), and these vote totals must be persisted with the review object on Parse. Note that multiple users may be voting on the same review at the same time, so you should use Parse's <a href="https://parse.com/docs/js/guide#objects-counters">atomic increment</a> function to safely increment the values. To keep things simple, you may let users vote on their own reviews and vote multiple times. Check out the advanced extra-credit requirements if you want to enable authentication and authorization rules that prohibit this.</p>
 
-        <p class="alert alert-warning">If you get a <code>NaN</code> when calculating the average, you probably forgot to convert the rating to a integer before saving the first review. Parse creates new columns the first time it sees them, and uses the data type of the first value it sees as the data type for the column. So if you saved the first review with a string rating, and then later fixed your code to covert it to a number, Parse will still be storing and returning the rating value as a string. To fix this, drop the entire Rating class using the Parse Data Browser. Or convert the ratings to integers as you calculate the average.</p>
+    
+<p>Users must also be able to delete a particular review. To keep things simple, you may allow users to delete any review, even those created by others. Check out the advanced extra-credit requirements if you want to enable authentication and authorization rules that prohibit this.</p>
 
-    </li>
 
-    <li>Because communication with the Parse server is asynchronous and not instantaneous, you must display visual feedback to the user that a save or fetch operation is in progress. This is typically done using some kind of animated icon that is shown while the request is happening, and hidden when the request ends. An easy and attractive option is to use the <a href="https://fortawesome.github.io/Font-Awesome/examples/#animated">spin feature of the Font Awesome library</a>.</li>
-
-    <li>If any of the Parse operations return an error, you should display the error's <code>message</code> property on the page so the user knows why the operation failed. If you are using Bootstrap, remember that they define style classes for <a href="http://getbootstrap.com/components/#alerts">alerts</a> that are appropriate for displaying errors and other feedback to the user.</li>
-
-</ul>
-
-<p>You have total control over the visual design and user experience, but here is an example of how this sort of page might look. Note that this example implements the advanced extra-credit requirements described below.</p>
-
-<img class="img-responsive screenshot" src="img/challenges/crud/reviews.png" alt="reviews screenshot">
-
-<p class="alert alert-warning">Remember to make your page look and function well both on small mobile devices and larger desktop computers.</p>
-
-<h2>Advanced Extra-Credit Requirements <img class="pull-right" src="views/challenges/double-black-diamond.png" alt="double-black-diamond sign"></h2>
-
-<h3>Use a Templating Engine</h3>
-
-<p>If you already know jQuery well, and don't want to generate/populate all those elements using imperative code, consider using a templating engine instead. These engines let you define an HTML template for how a single review would look, with special tokens that get replaced with properties of the current review object. The library then makes it easy to generate populated markup for all of your review objects based on the single template, which you can then insert into the page <em>en masse</em> using jQuery.</p>
-
-<p>There are many of these templating engines, but here are the most popular ones:</p>
-
-<dl>
-    <dt><a href="https://github.com/janl/mustache.js">Mustache</a></dt>
-    <dd>A really simple templating engine that has been ported to just about every programming language there is.</dd>
-
-    <dt><a href="http://handlebarsjs.com/">Handlebars</a></dt>
-    <dd>A simple but more flexible templating engine based on Mustache templates.</dd>
-
-    <dt><a href="http://facebook.github.io/react/">React.js</a></dt>
-    <dd>A much, much, more complicated templating engine that is gaining in popularity, partially because Facebook has been really hyping it lately. Learning React can be a huge time-sink, so I wouldn't recommend this unless you are already familiar with the core concepts behind templating engines, view frameworks, and object-oriented JavaScript. But if you are already a more advanced web developer and have been itching to learn React, this is your opportunity.</dd>
-
-</dl>
+<h2>Advanced Extra-Credit Requirements <img class="pull-right" src="img/challenges/crud/double-black-diamond.png" alt="double-black-diamond sign"></h2>
 
 <h3 id="extra-credit-auth">Authentication and Authorization</h3>
 
@@ -134,3 +116,21 @@
     <li>For extra-extra credit, you may also track which reviews the current user has voted on and prohibit the current user from voting on the same review twice. This requires storing an <a href="https://parse.com/docs/js/guide#objects-arrays">array</a> on the user object, containing the review <code>id</code>s the user has voted on. Use Parse's <code><a href="https://parse.com/docs/js/guide#objects-arrays">addUnique()</a></code> method to safely add new <code>id</code> values to this array.</li>
 
 </ul>
+
+<h3>Use a Templating Engine</h3>
+
+<p>If you already know jQuery well, and don't want to generate/populate all those elements using imperative code, consider using a templating engine instead. These engines let you define an HTML template for how a single review would look, with special tokens that get replaced with properties of the current review object. The library then makes it easy to generate populated markup for all of your review objects based on the single template, which you can then insert into the page <em>en masse</em> using jQuery.</p>
+
+<p>There are many of these templating engines, but here are the most popular ones:</p>
+
+<dl>
+    <dt><a href="https://github.com/janl/mustache.js">Mustache</a></dt>
+    <dd>A really simple templating engine that has been ported to just about every programming language there is.</dd>
+
+    <dt><a href="http://handlebarsjs.com/">Handlebars</a></dt>
+    <dd>A simple but more flexible templating engine based on Mustache templates.</dd>
+
+    <dt><a href="http://facebook.github.io/react/">React.js</a></dt>
+    <dd>A much, much, <strong>much</strong> more complicated templating engine that is gaining in popularity, partially because Facebook has been really hyping it lately. Learning React can be a huge time-sink, so I wouldn't recommend this unless you are already familiar with the core concepts behind templating engines, view frameworks, and object-oriented JavaScript. But if you are already a more advanced web developer and have been itching to learn React, this is your opportunity.</dd>
+
+</dl>

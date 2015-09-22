@@ -82,6 +82,8 @@ var mainApp = angular.module('MainApp', ['ngRoute', 'ui.bootstrap'])
     // Get current values
     $scope.currentChallengeId = $routeParams.challenge_id
     $scope.currentChallenge = $scope.currentChallenge == undefined ? '' : $scope.challenges.filter(function(d) { return d.challenge_id == $scope.currentChallengeId})[0]
+    $scope.submitUrl = $scope.currentChallenge['submitUrl_' +$scope.section]
+    console.log('submitUrl ', $scope.currentChallenge)
     $scope.currentRubric = $scope.rubrics[$routeParams.challenge_id]
   })
 })
@@ -116,6 +118,7 @@ var mainApp = angular.module('MainApp', ['ngRoute', 'ui.bootstrap'])
     // Set date given the section
     $scope.lectures.map(function(d){
       d.lectureDate = $scope.section == undefined ? d.date :d['date_' + $scope.section]     
+      d.due = ''
     }) 
     
     // Set date given the section
@@ -126,10 +129,18 @@ var mainApp = angular.module('MainApp', ['ngRoute', 'ui.bootstrap'])
     // Get challenge that correspods with lecture
     $scope.challenges.map(function(challenge){
       var lecture = $scope.lectures.filter(function(lecture){
-        return lecture.date == challenge.challengeDate
+        console.log(lecture.date, challenge.challengeDate)
+        return lecture.lectureDate == challenge.challengeDate
       })[0]
-      if(lecture == undefined || lecture.date == '') return
+      console.log('lecture ', lecture)
+      if(lecture == undefined) return
+      else if(lecture.date == '') {
+        lecture.due = undefined
+        lecture.challengeUrl = undefined
+        return
+      } 
       lecture.due = challenge.title
+      console.log('lecture due ', lecture.due)
       lecture.challengeUrl = challenge.challenge_id      
     })
   })
