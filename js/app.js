@@ -58,7 +58,9 @@ var mainApp = angular.module('MainApp', ['ngRoute', 'ui.bootstrap'])
     
     // Get values for current section
     $scope.content.time = specifiedSection == true ? data['time_' + $scope.section] : data.time
-    $scope.content.ta = specifiedSection == true ? data['ta_' + $scope.section] : data.ta
+    $scope.content.currentTa = specifiedSection == true ? data['ta_' + $scope.section] : data.ta
+    $scope.content.currentTaEmail = specifiedSection == true ? data['ta_' + $scope.section + '_email'] : ''    
+    $scope.content.currentTaHours = specifiedSection == true ? data['ta_' + $scope.section + '_officeHours'] : ''    
     $scope.content.lab = specifiedSection == true ? data['lab_' + $scope.section] : data.lab
   });
 })

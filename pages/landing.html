@@ -20,10 +20,7 @@
 						</tr>
 							<td>Credits:</td>
 							<td ng-bind="content.credits"></td>
-						</tr>
-						<td>Office Hours:</td>
-							<td>T/W: 2:30 - 4:00, MGH 330C</td>
-						</tr>
+						</tr>						
 					</table>
 				</div>
 			<div class="col-sm-4">
@@ -31,15 +28,19 @@
 					<h2>Instructor</h2>
 					<div ng-bind="content.instructor"></div>
 					<div ng-bind="content.instructor_position"></div>
+					<div>Office Hours: T/W: {{content.instructor_officeHours}}</div>					
+					</tr>
 					<a href="mailto:{{content.instructor_email}}?Subject=Info343%20question" target="_top">Email</a>
+
 				</div>
 			</div>
 			<div class="col-sm-4">
 				<div>
 					<h2>Teaching Assistant</h2>
-					<div ng-bind="content.ta"></div>
+					<div ng-bind="content.currentTa"></div>
 					<div ng-bind="content.ta_position"></div>
-					<a ng-if="section" href="mailto:{{content.ta_email}}?Subject=Info343%20question" target="_top">Email</a>
+					<a ng-if="section" href="mailto:{{content.currentTaEmail}}?Subject=Info343%20question" target="_top">Email</a>
+					<div ng-if="section">Office Hours: {{content.currentTaHours}}</div>
 				</div>
 			</div>
 		</div>
