@@ -27,7 +27,7 @@ var mainApp = angular.module('MainApp', ['ngRoute', 'ui.bootstrap'])
 
 
 // Main controller
-.controller('MainCtrl', function($scope, $routeParams, $location) {
+.controller('MainCtrl', function($scope, $routeParams, $location, LandingData) {
 	 $scope.$on('$routeChangeSuccess', function() {
     // Globally scoped variables
     $scope.$location = $location;
@@ -35,13 +35,27 @@ var mainApp = angular.module('MainApp', ['ngRoute', 'ui.bootstrap'])
 	 	$scope.homeLink = $scope.section == 'a' | $scope.section == 'c' ?  $scope.section + '' : ''
 		$scope.lecturesLink = $scope.section == 'a' | $scope.section == 'c' ?  $scope.section + '/lectures' : '/lectures'
 		$scope.challengesLink = $scope.section == 'a' | $scope.section == 'c' ?  $scope.section + '/challenges' : '/challenges'
-    
+    $scope.currentTaEmail = {};
     // Function to change sections    
     $scope.changeSections = function(newSection) {
       var newPath = $scope.section != undefined && $scope.section != '' ? newSection + $location.path().substr(2,$location.path().length) : newSection + $location.path()
       newPath = newPath.replace(/\/$/, "");
       $location.path(newPath)
     }
+    LandingData.then(function(data){
+      var specifiedSection = $scope.section == 'a' | $scope.section == 'c' ? true : false
+      $scope.content = angular.extend({},data);
+      
+      // Get values for current section
+      $scope.content.time = specifiedSection == true ? data['time_' + $scope.section] : data.time
+      $scope.content.currentTa = specifiedSection == true ? data['ta_' + $scope.section] : data.ta
+      $scope.content.currentTaEmail = specifiedSection == true ? data['ta_' + $scope.section + '_email'] : ''    
+      $scope.currentTaEmail = $scope.content.currentTaEmail;
+      $scope.instructorEmail = $scope.content.instructor_email 
+      console.log('email ', $scope.currentTaEmail)
+      $scope.content.currentTaHours = specifiedSection == true ? data['ta_' + $scope.section + '_officeHours'] : ''    
+      $scope.content.lab = specifiedSection == true ? data['lab_' + $scope.section] : data.lab
+    });
   });
 	
   // Highlight using Prism
@@ -51,25 +65,16 @@ var mainApp = angular.module('MainApp', ['ngRoute', 'ui.bootstrap'])
 })
 
 // Landing page controller
-.controller('LandingController', function($scope, LandingData, $routeParams){
-  LandingData.then(function(data){
-  	var specifiedSection = $scope.section == 'a' | $scope.section == 'c' ? true : false
-    $scope.content = angular.extend({},data);
-    
-    // Get values for current section
-    $scope.content.time = specifiedSection == true ? data['time_' + $scope.section] : data.time
-    $scope.content.currentTa = specifiedSection == true ? data['ta_' + $scope.section] : data.ta
-    $scope.content.currentTaEmail = specifiedSection == true ? data['ta_' + $scope.section + '_email'] : ''    
-    $scope.content.currentTaHours = specifiedSection == true ? data['ta_' + $scope.section + '_officeHours'] : ''    
-    $scope.content.lab = specifiedSection == true ? data['lab_' + $scope.section] : data.lab
-  });
-})
+// .controller('LandingController', function($scope, LandingData, $routeParams){
+
+// })
 
 // Challenge Controller
 .controller('ChallengeController', function($scope, $q, $routeParams, ChallengeData, ChallengeRubric){
   $q.all([ChallengeData, ChallengeRubric]).then(function(values){    
     $scope.challenges = values[0].map(function(d) {return d})
     
+    console.log($scope.currentTaEmail)
     // Set date based on section
     $scope.challenges.map(function(d){
     	d.challengeDate = $scope.section == undefined ? d.date :d['date_' + $scope.section]
