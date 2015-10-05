@@ -13,7 +13,7 @@
             <img class="landing-icon" ng-src="img/challenges/{{currentChallengeId}}/landing-icon.png"></img>
         </div>
         <h1 class='challenge-title'>{{currentChallenge.title}}</h1>
-        <h3 class="challenge-subtitle">Due: {{currentChallenge.challengeDate}}, {{currentChallenge.points}} points</h3>
+        <h3 class="challenge-subtitle">Due: {{currentChallenge.challengeDate}} <span style="text-decoration:underline">before</span> class, {{currentChallenge.points}} points</h3>
     	<div class="challenge-description" ng-include="'challenges/' + currentChallengeId + '.html'"></div>
     	 <div>
             <h2>Submit your attempt</h2>
