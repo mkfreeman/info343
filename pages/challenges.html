@@ -34,9 +34,18 @@
                     </tr>
                 </tbody>
             </table>
+            <div >
+            	<p>Select your section for submission:</p>
+				<div class="btn-group" role="group" aria-label="...">			
+				  <button ng-class="{'active':section == 'a'}" ng-click="changeSections('a')" type="button" class="btn btn-default">Section A</button>
+				  <button ng-class="{'active':section == 'c'}" ng-click="changeSections('c')" type="button" class="btn btn-default">Section C</button>				  
+				</div>
+              	
+            </div>
             <div ng-if="section">
             	<a target="_blank" href="{{submitUrl}}"><button type="button" class="btn btn-success">Submit</button></a>
             </div>
+            
         </div>
     </div>
 
