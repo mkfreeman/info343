@@ -69,17 +69,19 @@
 	</div>
 </div>
 
-	<div class="calendar" class="container-fluid" ng-controller="ScheduleController">
-		<h2>Schedule</h2>
-		<table class="table table-hover">
-			<th>Date</th>
-			<th>Topic</th>
-			<th>Due <span style="text-decoration:underline;">before</span> class</th>
-			 <tr ng-if="lecture.lectureDate != ''"ng-repeat="lecture in lectures">
-			 	<td >{{lecture.lectureDate}}</td>
-			 	<td ng-if="lecture.url"><a href="lectures/{{lecture.url}}" target="_blank">{{lecture.title}}</a></td>
-			 	<td ng-if="!lecture.url">{{lecture.title}}</td>
-			 	<td><a href='#challenges/{{lecture.challengeUrl}}'>{{lecture.due}}</a></td>
-			 </tr>
-		</table>
+	<div class="calendar container-fluid" ng-controller="ScheduleController">
+		<!-- <div class="group"> -->
+			<h2>Schedule</h2>
+			<table class="table table-hover">
+				<th>Date</th>
+				<th>Topic</th>
+				<th>Due <span style="text-decoration:underline;">before</span> class</th>
+				 <tr ng-if="lecture.lectureDate != ''"ng-repeat="lecture in lectures">
+				 	<td >{{lecture.lectureDate}}</td>
+				 	<td ng-if="lecture.url"><a href="lectures/{{lecture.url}}" target="_blank">{{lecture.title}}</a></td>
+				 	<td ng-if="!lecture.url">{{lecture.title}}</td>
+				 	<td><a href='#challenges/{{lecture.challengeUrl}}'>{{lecture.due}}</a></td>
+				 </tr>
+			</table>
+		<!-- </div> -->
 </main>
