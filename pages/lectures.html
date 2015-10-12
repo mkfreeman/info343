@@ -5,9 +5,23 @@
 			<a class="title" target="_blank" href='lectures/{{ lesson.url}}'>{{lesson.title}}</a>
 		</div>
 		<div ng-if="!lesson.url">
-			<p class="title">{{lesson.title}}</a>
+			<p class="title">{{lesson.title}}</p>
 		</div>
 		<div class="lecture-details">(Scheduled: {{lesson.lectureDate}})</div>
-		<div class="description">{{lesson.description}}</div>
+		<p class="description">{{lesson.description}}
+			
+			<!-- Link to exercises -->
+			<a ng-if="hasExercises[lesson.url]" ng-click="setLecture(lesson.url)">Exercises &darr;</a>
+					
+			<div ng-if="currentLecture == lesson.url">
+				<table class="table table-hover">				
+					 <tr ng-repeat="ex in currentExercises">
+					 	<td>{{ex.description}}</td>
+					 	<td><a ng-href="{{ex.incomplete}}" target="_blank">Incomplete</a></td>
+					 	<td><a ng-href="{{ex.complete}}" target="_blank">Complete</a></td>			
+					 </tr>
+				</table>
+			</div>
+		</p>
 	</div>
 </main>

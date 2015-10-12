@@ -95,15 +95,33 @@ var mainApp = angular.module('MainApp', ['ngRoute', 'ui.bootstrap'])
 })
 
 // Lecture controller
-.controller('LectureController', function($scope, $routeParams, Items){
-  Items.then(function(data){  	
-    
+.controller('LectureController', function($scope, $routeParams, $q, Items, Exercises){
+  $q.all([Items, Exercises]).then(function(values){    
+  // Items.then(function(data){  	
+    $scope.currentLecture = null;
     // Filter down to items that have lectures
-    $scope.items = data.filter(function(d) { return d.has_lecture == 'TRUE'})
+    $scope.items = values[0].filter(function(d) { return d.has_lecture == 'TRUE'})
     .map(function(d){
       d.lectureDate = $scope.section == undefined ? d.date :d['date_' + $scope.section]
       return d     
+    })    
+
+    $scope.exercises = values[1];
+    $scope.hasExercises = {};
+    $scope.exercises.map(function(d) {
+      // if($scope.hasExercises[d.lecture] == undefined) {
+        $scope.hasExercises[d.lecture] = true;
+        console.log('has exercises')
+      // }
     })
+
+    
+    $scope.setLecture = function(lecture) {
+      $scope.currentLecture = $scope.currentLecture == lecture ? null : lecture;
+      $scope.currentExercises = values[1].filter(function(d) {
+        return d.lecture == $scope.currentLecture;
+      })
+    }
   });
 })
 
@@ -162,7 +180,7 @@ var mainApp = angular.module('MainApp', ['ngRoute', 'ui.bootstrap'])
 }])
     
 
-// Get data
+// Get lecture data
 .factory('Items', ['$http', function($http){
   var Url   = "data/lectures.csv";
   var Items = $http.get(Url).then(function(response){
@@ -172,6 +190,19 @@ var mainApp = angular.module('MainApp', ['ngRoute', 'ui.bootstrap'])
   return Items;
 }])
 
+// Get exercises
+.factory('Exercises', function($http, $sce){
+  var Url   = "data/exercises.csv";
+  var Exercises = $http.get(Url).then(function(response){
+     return CSVToArray(response.data).map(function(d) {
+        d.complete = $sce.trustAsUrl(d.complete)
+        console.log('complete ', d.complete)
+        d.incomplete = $sce.trustAsUrl(d.incomplete)
+        return d
+      });;
+  });
+  return Exercises
+})
 
 // Challenge data
 .factory('ChallengeData', ['$http', function($http){
