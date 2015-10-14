@@ -17,8 +17,8 @@
 				<table class="table table-hover">				
 					 <tr ng-repeat="ex in currentExercises">
 					 	<td>{{ex.description}}</td>
-					 	<td><a ng-href="{{ex.incomplete}}" target="_blank">Incomplete</a></td>
-					 	<td><a ng-href="{{ex.complete}}" target="_blank">Complete</a></td>			
+					 	<td><a ng-if="ex.incomplete" ng-href="{{ex.incomplete}}" target="_blank">Incomplete</a></td>
+					 	<td><a ng-if="ex.complete" ng-href="{{ex.complete}}" target="_blank">Complete</a></td>			
 					 </tr>
 				</table>
 			</div>
