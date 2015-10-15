@@ -73,7 +73,7 @@
 <p>To create your map, follow these steps:
 <ol>
     <li>Create a <code>map</code> variable, and use the <code>setView</code> method to define how the map is centered and zoomed (you'll need to determine the appropriate positioning)</li>
-    <pre><code class="language-javascript">var map = L.map('your-div-container-name').setView([latitude, longitude], center)</code></pre>
+    <pre><code class="language-javascript">var map = L.map('your-div-container-name').setView([latitude, longitude], zoom)</code></pre>
     <li>Create a tile-layer, and add it to your map.  This tells the Leaflet library where the maptiles are coming from (this is the syntax for OpenStreetMap).</li>
     <pre><code class="language-javascript">var layer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png')</code></pre>
     <li>Then, simply add your tile layer to your map.</li>
