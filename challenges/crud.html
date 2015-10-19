@@ -5,7 +5,7 @@
 
 <p>In the past, if you wanted to build a web application with centralized data storage and authentication, you had to build both the client and server-sides. Over the last few years, however, several generic, cloud-based, data storage web services have been developed, which anyone can use to store and manage data without having to write, host, or maintain a web server. Most of them also provide built-in user account management, authentication, and authorization rules. For many kinds of applications, these services have altogether eliminated the need to write the server-side of the application.</p>
 
-<p>For this challenge, you will use one of these services that has become very popular over the last couple of years: <a href="https://parse.com/">Parse.com</a>. Parse was acquired by Facebook a few years ago, so it has a lot of money and hype behind it now. Their service is very well designed, their administration interface is beautifully put together, and their documentation is superb. You will use their JavaScript library to interact with their servers, and the jQuery library to render data on to the web page (if you already know jQuery well, see the advanced requirements for other options).</p>
+<p>For this challenge, you will use one of these services that has become very popular over the last couple of years: <a target="_blank" href="https://parse.com/">Parse.com</a>. Parse was acquired by Facebook a few years ago, so it has a lot of money and hype behind it now. Their service is very well designed, their administration interface is beautifully put together, and their documentation is superb. You will use their JavaScript library to interact with their servers, and the jQuery library to render data on to the web page (if you already know jQuery well, see the advanced requirements for other options).</p>
 
 <h2>Objectives</h2>
 
@@ -19,70 +19,91 @@
 
 <h2>Resources</h2>
 
-<p>I will show you in class how to get started with Parse and jQuery but you should read/review the following before you start on this challenge:</p>
+<p>We'll have a good amount of class time to practice Parse and jQuery, but these may come in handy for reference:</p>
 
-<ul>
-    <li><a href="https://parse.com/products/core">Parse Core Service Overview</a></li>
-    <li><a href="https://parse.com/docs/js/guide">Parse JavaScript Library Getting Started Guide</a></li>
-    <li><a href="http://jqfundamentals.com/chapter/jquery-basics">jQuery Basics</a></li>
-    <li><a href="http://jqfundamentals.com/chapter/traversing-manipulating">jQuery Traversing &amp; Manipulating</a></li>
-    <li><a href="https://api.jquery.com/">jQuery API Documentation</a></li>
+<h3>Relevant Slides from Class</h3>
+
+<ul class="resources">
+    <li class="resource slides"><a target="_blank" href="lectures/javascript">JavaScript</a></li>
+    <li class="resource slides"><a target="_blank" href="lectures/jquery">jQuery</a></li>
+    <li class="resource slides"><a target="_blank" href="lectures/parse-1">Data Storage I</a></li>
+    <li class="resource slides"><a target="_blank" href="lectures/parse-2">Data Storage II</a></li>
 </ul>
 
-<h2>Starter Repo and Folder</h2>
 
-<p>Just as with the previous challenges, you will use starter files in the same challenges repository that you already forked for the previous challenges. For this challenge you will be working in the <code>/reviews</code> directory within the repository. The directory should already exist and contain the file stubs and other assets you will need to complete the challenge.</p>
+<h3>Resources on the Web</h3>
 
-<h2>Requirements</h2>
+<ul class="resources">
+    <li class="resource reading"><a target="_blank" href="https://parse.com/products/core">Parse Core Service Overview</a></li>
+    <li class="resource reading"><a target="_blank" href="https://parse.com/docs/js/guide">Parse JavaScript Library Getting Started Guide</a></li>    
+    <li class="resource reading"><a target="_blank" href="https://api.jquery.com/">jQuery API Documentation</a></li>
+</ul>
 
-<p>The application you build for this challenge will let users write reviews about something, similar to Yelp or Amazon's product reviews. To keep this focused, you will build a reviews page for just one thing, but you get to decide what that thing is. It could be anything people might want to review: a book, movie, music track, video game, picture, clothing, restaurant, etc. It can be real or fictitious. Be creative!</p>
+<h2>Getting started</h2>
+
+<p>Unlike other challenges, there is no starter repository for this challenge (you're ready start a project on your own!).  You can <a href="https://help.github.com/articles/create-a-repo/" target="_blank">create a repository</a> on github, and clone it to your machine as you have in the past.
+</p>
+
+<p>When you create your project (or at some point before submission), you must create a <code>Readme.md</code> file that describes your project.  In addition to a short description, please include the following information:
+
+<ol>
+    <li>Did you receive help from any other sources (classmates, etc.)? If so, please list who.</li>
+    <li>Did you complete any advanced extensions to this challenge? If so, what?</li>
+    <li>Approximately how many hours did it take you to complete this challenge?</li>
+    <li>Did you encounter any problems in this challenge we should warn students about in the future? How can we make the challenge better?</li>
+</ol>
+
+</p>
+<h2>Application Requirements</h2>
+
+<p>Unlike earlier assignments, you'll be responsible for translating these high level descriptions into discrete coding tasks.  I suggest writing out the programming tasks necessary for building each component of your application.</p>
+
+<p>The application you build for this challenge will let users write reviews about something, similar to Yelp or Amazon's product reviews. To keep this focused, you will build a review page for just one thing, but you get to decide what that thing is. It could be anything people might want to review: a book, movie, music track, video game, picture, clothing, restaurant, etc. It can be real or fictitious. Be creative!</p>
 
 
-<p>You have total control over the visual design and user experience, but here is an example of how this sort of page might look. Note that this example implements the advanced extra-credit requirements described below.</p>
+<p>You have total control over the visual design and user experience, but here is an example of how this sort of page might look (you <strong>do not</strong> have to imitate this design, but should create an elegant interface using modern web standards).</p>
 
 <img class="img-responsive screenshot bordered" src="img/challenges/crud/reviews.png" alt="reviews screenshot"></img>
 
 <p class="alert alert-warning">Remember to make your page look and function well both on small mobile devices and larger desktop computers.</p>
 
 <h3>Product information</h3>
-<p>Your main review page must contain information about the thing that is being reviewed. This content should be relatively brief and focused, as the main point of this challenge is to enable the reviewing functionality.  You may want to include a product title, a short paragraph of information, an image, etc.</p>
+<p>Your review page must contain information about the thing that is being reviewed. This content should be relatively brief and focused, as the main point of this challenge is to enable the reviewing functionality.  You may want to include a product title, a short paragraph of information, an image, etc.</p>
 
 <p>In addition to displaying the individual reviews (see below), you must also display the average rating from all reviews. Again, look at how Yelp and Amazon do it, but you'll typically want to put this featured prominently alongside the product information.
 
-    <p class="alert alert-warning">If you get a <code>NaN</code> when calculating the average, you probably forgot to convert the rating to a integer before saving the first review. Parse creates new columns the first time it sees them, and uses the data type of the first value it sees as the data type for the column. So if you saved the first review with a string rating, and then later fixed your code to covert it to a number, Parse will still be storing and returning the rating value as a string. To fix this, drop the entire Rating class using the Parse Data Browser. Or convert the ratings to integers as you calculate the average.</p>
+    <p class="alert alert-warning">If you get a <code>NaN</code> when calculating the average, you may need to specify that the values are numbers (i.e., <code>Number(value),</code>, either when calculating the average, or before saving the data to Parse.</p>
 
 </p>
 
 <h3>Creating reviews</h3>
- <p>The user must be able to write a new review. A review must contain at least these properties:
-        <ul>
-             <li>a <strong>numeric</strong> <code>rating</code> (scale of 1-5)</li>
+ <p>You'll build an interface for the user to create a review that likely involves a <code>&ltform&gt</code> element to input free-text, as well as an interactive way to input a rating (see next section) .  The user must be able to write a new review, which must contain at least these properties:
+        <ul>             
              <li>a short <code>title</code></li>
              <li>a multi-line <code>body</code></li>
+             <li>a <strong>numeric</strong> <code>rating</code> (scale of 1-5: see below)</li>
          </ul>
 
-         You will add a few properties to store the helpful/unhelpful votes later.
-
-    <p>New reviews must be saved to your Parse application database. Define a new Parse object class, create an instance, set the properties, and <a href="https://parse.com/docs/js/guide#objects-saving-objects">save it</a>.</p>
+    <p>New reviews must be saved to your Parse application database. Define a new Parse object class, create an instance, set the properties, and <a href="https://parse.com/docs/js/guide#objects-saving-objects">save it</a>.  To do this, you'll need to retrieve the information from your rating element, as well as your form.</p>
 
 <h3>Assigning Ratings</h3>
 
-<p>For the rating, you should use one of the many jQuery rating plug-in libraries, which allow the user to choose one or more stars by clicking/tapping on them. The most popular one seems to be <a href="http://wbotelhos.com/raty">jQuery Raty</a>, which uses raster icons for the stars. Another option is <a href="https://github.com/Jacob87/raty-fa">jQuery Raty FA</a>, which is a fork of the former library that uses the scalable vector stars from <a href="https://fortawesome.github.io/Font-Awesome/">Font Awesome</a>. Vector-based icons can scale to any size or resolution, so they tend to look better on high-definition screens.
+<p>For the rating, you should use one of the many jQuery rating plug-in libraries, which allow the user to choose one or more stars by clicking/tapping on them. Just as with other element types, you can use jQuery to select the element and retrieve an attribute (such as 'rating'). The most popular one seems to be <a href="http://wbotelhos.com/raty">jQuery Raty</a>, which uses raster icons for the stars. Another option is <a href="https://github.com/Jacob87/raty-fa">jQuery Raty FA</a>, which is a fork of the former library that uses the scalable vector stars from <a href="https://fortawesome.github.io/Font-Awesome/">Font Awesome</a>. Vector-based icons can scale to any size or resolution, so they tend to look better on high-definition screens.
 
 <p class="alert alert-warning">Note that the score returned from these plug-ins is often a string value and not a number. You should <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt">convert this to an integer</a> before saving it to Parse. This will enable you to calculate the average rating more easily.</p>
 
        
 <h3>Displaying Reviews</h3>
 
-<p>You must also fetch all existing reviews and display them on the page. Use a <a href="https://parse.com/docs/js/guide#queries">Parse query</a> to fetch the reviews, and use the jQuery library to <a href="http://jqfundamentals.com/chapter/traversing-manipulating">create and populate new HTML elements</a> to display the returned data. Remember that the Parse library is making asynchronous requests to the server, so you must wait for the query to return before trying to render the data.</p>
+<p>At this point, you should have written your product description and built an interface for users to create reviews.  In order to display the reviews stored in your database, you must  fetch all existing reviews and display them on the page, which you can do using a <a href="https://parse.com/docs/js/guide#queries">Parse query</a>.  Once you have the reviews, you should iterative through them in JavaScript, and use jQuery to create new HTML elements and  <a target="_blank" href="http://www.w3schools.com/jquery/html_append.asp">append</a> them to the page. Remember that the Parse library is making asynchronous requests to the server, so you must wait for the query to return before trying to render the data.</p>
 
-<p>Because the review title and body are entered by the user and integrated into the page by your code, you must protect against <a href="https://en.wikipedia.org/wiki/Code_injection#HTML_script_injection">script injection attacks</a>. The easiest way to do this is to use jQuery's <code><a href="https://api.jquery.com/text/">text()</a></code> method instead of it's <code>html()</code> method when populating the review title and body elements. The <code>text()</code> method escapes the HTML, so any embedded HTML will just show up literally on the page, and will not be interpreted as HTML by the browser.</p>
+<p>Because the review title and body are entered by the user and integrated into the page by your code, it's a best practice to protect against <a href="https://en.wikipedia.org/wiki/Code_injection#HTML_script_injection">script injection attacks</a>. The easiest way to do this is to use jQuery's <code><a href="https://api.jquery.com/text/">text()</a></code> method instead of it's <code>html()</code> method when populating the review title and body elements. The <code>text()</code> method escapes the HTML, so any embedded HTML will just show up literally on the page, and will not be interpreted as HTML by the browser.</p>
 
-<p>You should also display summary informaiton of the up/down votes received by each review (see below).  A common way to do this is textually, stating "2 out of 3 people found this review helpful" (i.e., 2 up-votes, 1 down-vote)</p>
+<p>You should also display summary information of the up/down votes received by each review (see below).  A common way to do this is textually, stating "2 out of 3 people found this review helpful" (i.e., 2 up-votes, 1 down-vote)</p>
 
 <h3>Interacting with reviews</h3>
 
-<p>Users must be able to indicate whether a particular review was helpful or unhelpful (e.g., up/down vote icons or yes/no buttons), and these vote totals must be persisted with the review object on Parse. Note that multiple users may be voting on the same review at the same time, so you should use Parse's <a href="https://parse.com/docs/js/guide#objects-counters">atomic increment</a> function to safely increment the values. To keep things simple, you may let users vote on their own reviews and vote multiple times. Check out the advanced extra-credit requirements if you want to enable authentication and authorization rules that prohibit this.</p>
+<p>Users must be able to indicate whether a particular review was helpful or unhelpful (e.g., up/down vote icons or yes/no buttons), and these vote totals must be persisted with the review object on Parse. Note that multiple users may be voting on the same review at the same time, so you should use Parse's <a target="_blank" href="https://parse.com/docs/js/guide#objects-counters">atomic increment</a> function to safely increment the values. To keep things simple, you may let users vote on their own reviews and vote multiple times. Check out the advanced extra-credit requirements if you want to enable authentication and authorization rules that prohibit this.</p>
 
     
 <p>Users must also be able to delete a particular review. To keep things simple, you may allow users to delete any review, even those created by others. Check out the advanced extra-credit requirements if you want to enable authentication and authorization rules that prohibit this.</p>
@@ -101,7 +122,7 @@
 <ul>
     <li>The user must sign in before writing a review (no anonymous reviews). The user must supply their username and password through some kind of form, and you code should pass those values to the <code><a href="https://parse.com/docs/js/guide#users-logging-in">Parse.User.logIn()</a></code> method to sign in. Use <code><a href="https://parse.com/docs/js/guide#users-current-user">Parse.User.current()</a></code> to determine if the user is signed in, and who the signed-in user actually is.</li>
 
-    <li>If the user does not yet have an account, the user must be able to sign up for one. When signing up you may allow the user to provide more information than just the username and password (e.g., first and last name, email address, etc.). You can then display some of this information on the page to indicate who the current user is.</li>
+    <li>If the user does not yet have an account, the user must be able to sign up for one. When signing up you may allow the user to provide more information than just the username and password (e.g., first and last name, email address, etc.). You can then display some of this information on the page to indicate who the current user is.  Alternatively, you may set up your application to have a Facebook login option.</li>
 
     <li>After signing in, you must provide the user a mechanism for signing out (e.g., a button or link). Use <code><a href="https://parse.com/docs/js/guide#users-current-user">Parse.User.logOut()</a></code> to sign the user out.</li>
 
