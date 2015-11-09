@@ -16,14 +16,15 @@
 
     <h2>Resources</h2>
 
-    <p>This challenge is really about going out there and finding a library that <strong>you</strong> find interesting/fun/useful.  Try and find a solution that someone else has made to a problem you've encountered, or build a creative application using the tools that you find!</p>
+    <p>In order to complete this challenge, you'll need to leverage your data storage and data representation skills you've learned using Angular.  These resources may come in handy.</p>
     <h3>Resources on the Web</h3>
 
 
     <ul class="resources">
-        <li class="resource slides"><a target="_blank" href="lectures/angular">Angulr I Slides</a></li>
+        <li class="resource slides"><a target="_blank" href="lectures/angular">Angular I Slides</a></li>
         <li class="resource slides"><a target="_blank" href="lectures/angular2">Angular II Slides</a></li>
-        <li class="resource slides"><a target="_blank" href="lectures/angular-route">Multi-page Architecture Slides</a></li>
+        <li class="resource slides"><a target="_blank" href="lectures/firebase">Firebase Slides</a></li>
+        <li class="resource slides"><a target="_blank" href="lectures/angular-ui-router">Multi-page Architecture Slides</a></li>
     </ul>
 
 </section>
@@ -41,19 +42,30 @@
                 <li>Parse the data once you've loaded it, which is far easier if you use a library like <a href="http://papaparse.com/" target="_blank">PapaParse</a></li>
                 <li>Write your .csv file, then manually turn it into a JSON object using a service like <a href="https://shancarter.github.io/mr-data-converter/" target="_blank">Mr. Data Converter</a></li>
             </ul>
-            <li>Use a service like <a href="http://parse.com" target="_blank">Parse.com</a>.  How you get the data there is a question you'll have to solve....</li>
+            <li>Use a service like <a href="http://Firebase.com" target="_blank">Firebase</a> to store your data. How you get the data there is a question you'll have to solve....</li>
         </li>
     </ul>
     
-    <p>This loaded data should drive the content of the page.  For example, if you are showcasing multiple projects you've worked on (including images, a desription, etc.) your data should maintain those images/descriptions/links, and you should use angular to handle the display of that data.  You could even go as far as storing other contact (i.e., contact info, land page description) in data as well.</p> 
+    <p>This loaded data should drive the content of the page.  For example, if you are showcasing multiple projects you've worked on (including images, links, a desription, etc.) your data should maintain those images/descriptions/links, and you should use angular to handle the display of that data.  You could even go as far as storing other contact (i.e., contact info, landing page description) in data as well.</p> 
     
     <h3>Multi-page Architecture</h3>
 
-    <p>Building pages with multi-page architecture is a common web-standard.  Rather than figuring out page-redirects with jQuery, it is much more efficient to handle these component with the <a href="https://docs.angularjs.org/api/ngRoute/service/$route" target="_blank">Angular Route</a> service.  This allows users to create and load html fragments into their page content without reloading the page.  In order to do this, you'll need to perform the following tasks:</p>
+    <p>Building pages with multi-page architecture is a common web-standard.  Rather than figuring out page-redirects with jQuery, it is much more efficient to handle these component with the <a href="http://angular-ui.github.io/ui-router/site/#/api/ui.router" target="_blank">Angular UI-Router</a> service.  This allows users to create and load html fragments into their page content without reloading the page.  In order to do this, you'll need to perform the following tasks:</p>
 
     <ul>
-        <li>Create a navigation element that persists across pages (I suggest you use bootstrap <code>nav</code> elements).
+        <li>Create a navigation element that persists across pages.</li>
         <li>Create <strong>at least</strong> 3 different pages that users can navigate across.  These could include a home page, projects page, interests page, contact page, etc.</li>
     </ul>
+    <h3>Deploy Site to Your Student Web Server</h3>
+
+    <p>As you've done in previous challenges, commit your files to a local repository, push those changes to a GitHub repository, and then deploy your site to your student web server.  You will submit your github project URL as your submission.  Before you do so, please create a <code>Readme.md</code> file to answer the following questions:
+        <ol>
+            <li>What is the URL of this project on your student web-server?</li>
+            <li>Did you receive help from any other sources (classmates, etc.)? If so, please list who.</li>
+            <li>Approximately how many hours did it take you to complete this challenge?</li>
+            <li>Did you encounter any problems in this challenge we should warn students about in the future? How can we make the challenge better?</li>
+        </ol>
+
+    </p>
     
 </section>
